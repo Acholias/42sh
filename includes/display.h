@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 17:33:34 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 20:33:25 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/05 20:04:03 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/05 20:08:38 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/keys.h"
-#include "includes/term.h"
+#ifndef DISPLAY_H
+# define DISPLAY_H
 
-int main(void)
-{
-	t_term			terminal;
+# include "term.h"
 
-	if (terminal_init(&terminal) == -1) return -1;
-	if (terminal_enable(&terminal) == -1) return -1;
+void	clear_line(void);
+void	cursor_left(int n);
+void	cursor_right(int n);
+void	display_buffer(const char *buffer, int cursor_pos);
 
-	manage_terminal(&terminal);
-
-	terminal_disable(&terminal);
-	close (6); // WSL terminal's fd
-	return (0);
-}
+#endif
