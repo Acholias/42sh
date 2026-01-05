@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/05 18:24:19 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/05 19:19:25 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS		= -Wall -Wextra -Werror -g -I.
 SRCDIR		= srcs/term
 OBJSDIR		= obj
 
-SRCS		= term_init.c
+SRCS		= term_init.c keys.c
 OBJS		= $(addprefix $(OBJSDIR)/, main.o $(SRCS:.c=.o))
 
 all: $(NAME)
