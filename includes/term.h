@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:27:09 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 20:33:43 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 00:54:01 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <stdio.h>
-# include "keys.h"
-# include "display.h"
+
+extern volatile sig_atomic_t g_interrupted;
 
 typedef	struct s_term
 {
@@ -37,5 +37,8 @@ int		terminal_init(t_term *terminal);
 int		terminal_enable(t_term *terminal);
 int		terminal_disable(t_term *terminal);
 int		manage_terminal(t_term	*terminal);
+
+// signals.c
+void	handle_signal(int signal);
 
 #endif

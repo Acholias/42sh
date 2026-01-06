@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/05 20:28:41 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/06 00:56:10 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,13 @@ OBJSDIR		= obj
 
 SRCS		= term_init.c \
 			  	keys.c \
-				display.c
+				display.c \
+				buffer.c \
+				cursor.c \
+				shortcuts.c \
+				mouvements.c \
+				signals.c
+
 
 OBJS		= $(addprefix $(OBJSDIR)/, main.o $(SRCS:.c=.o))
 

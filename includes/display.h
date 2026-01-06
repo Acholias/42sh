@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:04:03 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 20:08:38 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/05 23:46:16 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 # define DISPLAY_H
 
 # include "term.h"
+# include "readline.h"
 
-void	clear_line(void);
-void	cursor_left(int n);
-void	cursor_right(int n);
-void	display_buffer(const char *buffer, int cursor_pos);
+void	display_clear_line(void);
+void	display_cursor_left(int n);
+void	display_cursor_right(int n);
+void	display_refresh_buffer(const t_line *line);
 
 #endif

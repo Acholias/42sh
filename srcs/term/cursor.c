@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 17:33:34 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 23:52:46 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/05 23:45:14 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/05 23:50:26 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/term.h"
+#include "../../includes/readline.h"
 
-int main(void)
+void	cursor_left(t_line *line)
 {
-	t_term			terminal;
+	if (!line)
+		return ;
+	if (line->pos > 0)
+		line->pos--;
+}
 
-	if (terminal_init(&terminal) == -1)
-		return (-1);
-	if (terminal_enable(&terminal) == -1)
-	{
-		terminal_disable(&terminal);
-		return (-1);
-	}
-	manage_terminal(&terminal);
-	terminal_disable(&terminal);
-	write(STDOUT_FILENO, "\n", 1);
-	return (0);
+void	cursor_right(t_line *line)
+{
+	if (!line)
+		return ;
+	if (line->pos < line->len)
+		line->pos++;
+}
+
+void	cursor_home(t_line *line)
+{
+	if (!line)
+		return;
+	line->pos = 0;
+}
+
+void	cursor_end(t_line *line)
+{
+	if (!line)
+		return ;
+	line->pos = line->len;
 }

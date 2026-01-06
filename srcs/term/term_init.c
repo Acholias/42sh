@@ -6,14 +6,19 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 17:03:16 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 20:35:02 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 00:55:02 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/term.h"
+#include "../../includes/keys.h"
+#include "../../includes/display.h"
+#include "../../includes/readline.h"
 
 int	terminal_init(t_term *terminal)
 {
+	struct sigaction	sa;
+
 	if (!terminal)
 		return (-1);
 	memset(terminal, 0, sizeof(t_term));
@@ -23,6 +28,10 @@ int	terminal_init(t_term *terminal)
 	cfmakeraw(&terminal->raw);
 	terminal->raw.c_lflag |= ISIG;
 	terminal->enabled = false;
+	memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = handle_signal;
+	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
 	return (0);
 }
 
@@ -49,40 +58,36 @@ int	terminal_disable(t_term *terminal)
 int	manage_terminal(t_term *terminal)
 {
 	t_key_result	key;
-	char			buffer[1024] = {0};
-	int				pos;
-	int				len;
+	t_line			line;
 
 	(void)terminal;
-	pos = 0;
-	len = 0;
+	buffer_init(&line, 1024);
+	write(STDOUT_FILENO, "$> ", 3);
 	while (1)
 	{
+		if (g_interrupted)
+		{
+			g_interrupted = 0;
+			line.pos = 0;
+			line.len = 0;
+			if (line.buffer)
+				line.buffer[0] = '\0';
+			write(STDOUT_FILENO, "\n\r$> ", 5);
+			continue;
+		}
 		key = get_key();
 		if (key.key == KEY_ESC || key.key == KEY_CTRL_D)
-			break;
-		
-		if (key.key == KEY_UNKNOWN && key.character)
-		{
-			memmove(&buffer[pos + 1], &buffer[pos], len - pos + 1);
-			buffer[pos] = key.character;
-			pos++;
-			len++;
-			buffer[len] = '\0';
-		}
-		else if (key.key == KEY_BACKSPACE && pos > 0)
-		{
-			pos--;
-			len--;
-			memmove(&buffer[pos], &buffer[pos + 1], len - pos + 1);
-		}
-		else if (key.key == KEY_CTRL_A)
-			pos = 0;
-		else if (key.key == KEY_CTRL_E)
-			pos = len;
-
-		display_buffer(buffer, pos);
-
+			break ;
+		if (is_shortcuts_key(key))
+			handle_shortcuts(&line, key);
+		else if (is_mouvements_key(key))
+			handle_mouvements(&line, key);
+		else if (key.key == KEY_BACKSPACE)
+			buffer_backspace(&line);
+		else if (key.key == KEY_UNKNOWN && key.character)
+			buffer_insert(&line, key.character);
+		display_refresh_buffer(&line);
 	}
+	buffer_free(&line);
 	return (0);
 }

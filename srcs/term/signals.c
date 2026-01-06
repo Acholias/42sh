@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 17:33:34 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 23:52:46 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/06 00:49:42 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/06 00:51:16 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/term.h"
+#include <signal.h>
 
-int main(void)
+volatile sig_atomic_t g_interrupted = 0;
+
+void	handle_signal(int signal)
 {
-	t_term			terminal;
-
-	if (terminal_init(&terminal) == -1)
-		return (-1);
-	if (terminal_enable(&terminal) == -1)
-	{
-		terminal_disable(&terminal);
-		return (-1);
-	}
-	manage_terminal(&terminal);
-	terminal_disable(&terminal);
-	write(STDOUT_FILENO, "\n", 1);
-	return (0);
+	(void)signal;
+	g_interrupted = 1;
 }
