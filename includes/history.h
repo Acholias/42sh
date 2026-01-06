@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 20:36:36 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 21:11:17 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 00:08:31 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ char		*history_get_current(t_history *hist);
 void		history_save_temp(t_history *hist, const char *line);
 
 // persistence.c
-int			history_load(t_history *hist, const char *filepath);
 int			history_save(t_history *hist, const char *filepath);
+int			history_load(t_history *hist, const char *filepath);
+int			history_save_default(t_history *hist);
+int			history_load_default(t_history *hist);
 
 #endif

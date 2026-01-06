@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:19:02 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 23:51:18 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 00:09:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ static int	init_readline_context(t_term *term, t_line *line, t_history **hist)
 	*hist =	history_init();
 	if (!*hist)
 		return (-1);
+
+	history_load_default(*hist);
 	buffer_init(line, 1024);
 	signal_set_current_line(line);
 	signal_set_current_term(term);
@@ -102,6 +104,7 @@ static int	init_readline_context(t_term *term, t_line *line, t_history **hist)
 
 static void	cleanup_readline_context(t_line *line, t_history *hist)
 {
+	history_save_default(hist);
 	signal_set_current_line(NULL);
 	signal_set_current_term(NULL);
 	buffer_free(line);

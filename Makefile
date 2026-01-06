@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/06 23:43:24 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/07 00:11:07 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		= term_init.c \
 				mouvements.c \
 				signals.c \
 				history.c \
+				persistence.c \
 				terminal_manager.c
 
 
@@ -49,6 +50,7 @@ clean:
 
 fclean: clean
 	@rm -rf $(NAME)
+	@rm -rf ~/.42sh_history
 
 re: fclean all
 
