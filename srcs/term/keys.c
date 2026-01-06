@@ -6,12 +6,11 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:41:40 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 15:56:48 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 15:58:23 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/keys.h"
-#include <unistd.h>
 
 static t_key	parse_alt_key(unsigned char ch)
 {

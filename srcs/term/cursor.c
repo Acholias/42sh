@@ -6,11 +6,16 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:45:14 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 23:50:26 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 16:06:27 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/readline.h"
+
+static bool	is_word_separator(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\0');
+}
 
 void	cursor_left(t_line *line)
 {
@@ -40,4 +45,27 @@ void	cursor_end(t_line *line)
 	if (!line)
 		return ;
 	line->pos = line->len;
+}
+
+void	cursor_word_foreward(t_line *line)
+{
+	if (!line || line->pos >- line->len)
+		return ;
+
+	while (line->pos < line->len && is_word_separator(line->buffer[line->pos]))
+		line->pos++;
+	while (line->pos < line->len && !is_word_separator(line->buffer[line->pos]))
+		line->pos++;
+}
+
+void	cursor_word_backward(t_line *line)
+{
+	if (!line || line->pos == 0)
+		return ;
+
+	line->pos--;
+	while (line->pos > 0 && is_word_separator(line->buffer[line->pos]))
+		line->pos--;
+	while (line->pos > 0 && !is_word_separator(line->buffer[line->pos - 1]))
+		line->pos--;
 }
