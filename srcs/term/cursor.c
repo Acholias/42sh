@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:45:14 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 16:07:48 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 19:12:24 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	cursor_end(t_line *line)
 	line->pos = line->len;
 }
 
-void	cursor_word_foreward(t_line *line)
+void	cursor_word_forward(t_line *line)
 {
-	if (!line || line->pos >- line->len)
+	if (!line || line->pos >= line->len)
 		return ;
 
 	while (line->pos < line->len && is_word_separator(line->buffer[line->pos]))

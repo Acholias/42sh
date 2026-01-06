@@ -43,7 +43,7 @@ void	handle_mouvements(t_line *line, t_key_result key)
 	else if ((key.key == KEY_ARROW_RIGHT || key.key == KEY_CTRL_F) && line->pos < line->len)
 		cursor_right(line);
 	else if (key.key == KEY_CTRL_ARROW_LEFT || key.key == KEY_ALT_B)
-		cursor_word_foreward(line);
-	else if (key.key == KEY_CTRL_ARROW_RIGHT || key.key == KEY_ALT_F)
 		cursor_word_backward(line);
+	else if (key.key == KEY_CTRL_ARROW_RIGHT || key.key == KEY_ALT_F)
+		cursor_word_forward(line);
 }

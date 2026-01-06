@@ -49,7 +49,7 @@ void	cursor_left(t_line *line);
 void	cursor_right(t_line *line);
 void	cursor_home(t_line *line);
 void	cursor_end(t_line *line);
-void	cursor_word_foreward(t_line *line);
+void	cursor_word_forward(t_line *line);
 void	cursor_word_backward(t_line *line);
 
 //shortcuts.c

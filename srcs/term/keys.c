@@ -37,54 +37,60 @@ static t_key	parse_alt_key(unsigned char ch)
 	return (KEY_UNKNOWN);
 }
 
-static t_key	parse_bracket_sequence(unsigned char *seq)
+static t_key	parse_bracket_sequence(unsigned char first_char)
 {
-	if (seq[0] >= '0' && seq[0] <= '9')
+	unsigned char	seq[8];
+
+	if (first_char >= '0' && first_char <= '9')
 	{
-		if (read(STDIN_FILENO, &seq[1], 1) != 1)
+		if (read(STDIN_FILENO, &seq[0], 1) != 1)
 			return (KEY_ESC);
-		if (seq[1] == '~')
+		if (seq[0] == '~')
 		{
-			if (seq[0] == '1')
+			if (first_char == '1')
 				return (KEY_HOME);
-			if (seq[0] == '3')
+			if (first_char == '3')
 				return (KEY_DELETE);
-			if (seq[0] == '4')
+			if (first_char == '4')
 				return (KEY_END);
-			if (seq[0] == '5')
+			if (first_char == '5')
 				return (KEY_PAGE_UP);
-			if (seq[0] == '6')
+			if (first_char == '6')
 				return (KEY_PAGE_DOWN);
 		}
-		else if (seq[0] == '1' && seq[1] == ';')
+		else if (first_char == '1' && seq[0] == ';')
 		{
-			if (read(STDIN_FILENO, &seq[2], 1) != 1)
+			if (read(STDIN_FILENO, &seq[1], 1) != 1)
 				return (KEY_ESC);
-			if (seq[2] == '5')
+			if (seq[1] == '5')
 			{
-				if (read(STDIN_FILENO, &seq[3], 1) != 1)
+				if (read(STDIN_FILENO, &seq[2], 1) != 1)
 					return (KEY_ESC);
-				if (seq[3] == 'D')
+				if (seq[2] == 'D')
 					return (KEY_CTRL_ARROW_LEFT);
-				if (seq[3] == 'C')
+				if (seq[2] == 'C')
 					return (KEY_CTRL_ARROW_RIGHT);
+				if (seq[2] == 'A')
+					return (KEY_ARROW_UP);
+				if (seq[2] == 'B')
+					return (KEY_ARROW_DOWN);
 			}
 		}
 		return (KEY_UNKNOWN);
 	}
 	else
 	{
-		if (seq[0] == 'A')
+		if (first_char == 'A')
 			return (KEY_ARROW_UP);
-		if (seq[0] == 'B')
+		if (first_char == 'B')
 			return (KEY_ARROW_DOWN);
-		if (seq[0] == 'C')
+		if (first_char == 'C')
 			return (KEY_ARROW_RIGHT);
-		if (seq[0] == 'D')
+		if (first_char == 'D')
 			return (KEY_ARROW_LEFT);
-		if (seq[0] == 'H')
+		if (first_char == 'H')
 			return (KEY_HOME);
-		if (seq[0] == 'F')
+		if (first_char == 'F')
 			return (KEY_END);
 	}
 	return (KEY_UNKNOWN);
@@ -97,14 +103,14 @@ static t_key	parse_escape(void)
 	if (read(STDIN_FILENO, &seq[0], 1) != 1)
 		return (KEY_ESC);
 	if (seq[0] >= 'a' && seq[0] <= 'z')
-		return(parse_alt_key(seq[0]));
+		return (parse_alt_key(seq[0]));
 	if (seq[0] == '<' || seq[0] == '>' || seq[0] == 127 || seq[0] == 8)
 		return (parse_alt_key(seq[0]));
 	if (seq[0] == '[')
 	{
 		if (read(STDIN_FILENO, &seq[1], 1) != 1)
 			return (KEY_ESC);
-		return (parse_bracket_sequence(&seq[1]));
+		return (parse_bracket_sequence(seq[1]));
 	}
 	else if (seq[0] == 'O')
 	{
@@ -126,14 +132,14 @@ t_key_result	get_key(void)
 	res.key = KEY_UNKNOWN;
 	res.character = 0;
 
-    if (read(STDIN_FILENO, &ch, 1) != 1)
-        return (res);
+	if (read(STDIN_FILENO, &ch, 1) != 1)
+		return (res);
 
-    if (ch == 27)
-    {
+	if (ch == 27)
+	{
 		res.key = parse_escape();
 		return (res);
-    }
+	}
 
 	if (ch == '\n' || ch == '\r')
 		res.key = KEY_ENTER;
