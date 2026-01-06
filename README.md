@@ -14,6 +14,7 @@ Un shell POSIX complet avec gestion avancée de la ligne de commande, job contro
 Point d'entrée + boucle principale REPL (Read-Eval-Print Loop)
 
 #### **terminal/** - Gestion du terminal (mode raw)
+- `terminal_manager.c` - Regroupe les fonctions pour l'utilisation du terminal
 - `term_init.c` - Initialisation/restauration terminal (termios)
 - `keys.c` - Lecture et détection des touches
 - `display.c` - Affichage et déplacement curseur

@@ -52,7 +52,7 @@ void	handle_shortcuts(t_term *term, t_line *line, t_key_result key)
 	else if (key.key == KEY_CTRL_Y)
 		buffer_yank(term, line);
 	else if (key.key == KEY_CTRL_L)
-		display_refresh_buffer(line);
+		display_refresh_with_clear(line);
 	else if (key.key == KEY_ALT_U)
 		buffer_uppercase_word(line);
 	else if (key.key == KEY_ALT_L)
