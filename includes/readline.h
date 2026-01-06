@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:21:15 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 19:06:27 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 20:47:54 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "term.h"
 # include "keys.h"
-
-# define MALLOC_FAILED NULL
 
 typedef struct s_line
 {
