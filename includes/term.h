@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:27:09 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 16:11:40 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 19:33:30 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,15 @@ int		terminal_disable(t_term *terminal);
 int		manage_terminal(t_term	*terminal);
 
 // signals.c
-void	handle_signal(int signal);
+void	handle_sigint(int signal);
+void	handle_sigwinch(int signal);
+void	handle_sigtstp(int signal);
+void	handle_sigcont(int signal);
 void	signal_reset_buffer(t_line *line);
+void	signal_handle_winch(t_line *line);
+void	signal_set_current_line(t_line *line);
+void	signal_set_current_term(t_term *term);
+void	signals_init_interactive(void);
+void	signals_restore_default(void);
 
 #endif

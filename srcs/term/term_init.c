@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 17:03:16 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 19:03:30 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 19:37:56 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 int	terminal_init(t_term *terminal)
 {
-	struct sigaction	sa;
-
 	if (!terminal)
 		return (-1);
 	memset(terminal, 0, sizeof(t_term));
@@ -29,11 +27,8 @@ int	terminal_init(t_term *terminal)
 	terminal->raw.c_lflag |= ISIG;
 	terminal->raw.c_lflag &= ~ECHOCTL;
 	terminal->enabled = false;
-	memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = handle_signal;
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, NULL);
 	terminal->killring = NULL;
+	signals_init_interactive();
 	return (0);
 }
 
@@ -67,8 +62,11 @@ int	manage_terminal(t_term *terminal)
 	t_key_result	key;
 	t_line			line;
 
-	(void)terminal;
+	if (!terminal)
+		return (-1);
 	buffer_init(&line, 1024);
+	signal_set_current_line(&line);
+	signal_set_current_term(terminal);
 	write(STDOUT_FILENO, PROMPT, strlen(PROMPT));
 	while (1)
 	{
@@ -77,6 +75,7 @@ int	manage_terminal(t_term *terminal)
 			signal_reset_buffer(&line);
 			continue ;
 		}
+		signal_handle_winch(&line);
 		key = get_key();
 		if (key.key == KEY_ESC || key.key == KEY_CTRL_D)
 			break ;
@@ -90,6 +89,8 @@ int	manage_terminal(t_term *terminal)
 			buffer_insert(&line, key.character);
 		display_refresh_buffer(&line);
 	}
+	signal_set_current_line(NULL);
+	signal_set_current_term(NULL);
 	buffer_free(&line);
 	return (0);
 }

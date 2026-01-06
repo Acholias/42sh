@@ -128,12 +128,18 @@ t_key_result	get_key(void)
 {
 	t_key_result	res;
 	unsigned char	ch;
+	int				ret;
 
 	res.key = KEY_UNKNOWN;
 	res.character = 0;
 
-	if (read(STDIN_FILENO, &ch, 1) != 1)
+	ret = read(STDIN_FILENO, &ch, 1);
+	if (ret != 1)
+	{
+		if (ret == -1 && errno == EINTR)
+			return (res);
 		return (res);
+	}
 
 	if (ch == 27)
 	{
