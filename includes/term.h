@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:27:09 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 00:54:01 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 12:07:24 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 extern volatile sig_atomic_t g_interrupted;
 
+typedef struct s_line t_line;
+
 typedef	struct s_term
 {
 	struct	termios orig;
@@ -31,6 +33,8 @@ typedef	struct s_term
 	bool	enabled;
 
 }	t_term;
+
+# define PROMPT "\033[1;31m42sh> \033[0m"
 
 // term_init.c
 int		terminal_init(t_term *terminal);
@@ -40,5 +44,6 @@ int		manage_terminal(t_term	*terminal);
 
 // signals.c
 void	handle_signal(int signal);
+void	signal_reset_buffer(t_line *line);
 
 #endif

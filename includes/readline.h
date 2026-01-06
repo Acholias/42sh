@@ -6,15 +6,15 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:21:15 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 00:18:30 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 11:57:44 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
 
-#include "keys.h"
 # include "term.h"
+# include "keys.h"
 
 # define MALLOC_FAILED NULL
 

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:20:11 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 23:41:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 12:19:00 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	buffer_init(t_line *line, int capacity)
 void	buffer_free(t_line *line)
 {
 	free(line->buffer);
-	line->buffer[0] = '\0';
+	line->buffer = NULL;
 	line->pos = 0;
 	line->len = 0;
 	line->cap = 0;

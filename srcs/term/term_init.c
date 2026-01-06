@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 17:03:16 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 00:55:02 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 12:15:21 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	terminal_init(t_term *terminal)
 	terminal->raw = terminal->orig;
 	cfmakeraw(&terminal->raw);
 	terminal->raw.c_lflag |= ISIG;
+	terminal->raw.c_lflag &= ~ECHOCTL;
 	terminal->enabled = false;
 	memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = handle_signal;
@@ -62,18 +63,13 @@ int	manage_terminal(t_term *terminal)
 
 	(void)terminal;
 	buffer_init(&line, 1024);
-	write(STDOUT_FILENO, "$> ", 3);
+	write(STDOUT_FILENO, PROMPT, strlen(PROMPT));
 	while (1)
 	{
 		if (g_interrupted)
 		{
-			g_interrupted = 0;
-			line.pos = 0;
-			line.len = 0;
-			if (line.buffer)
-				line.buffer[0] = '\0';
-			write(STDOUT_FILENO, "\n\r$> ", 5);
-			continue;
+			signal_reset_buffer(&line);
+			continue ;
 		}
 		key = get_key();
 		if (key.key == KEY_ESC || key.key == KEY_CTRL_D)

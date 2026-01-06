@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 19:59:07 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 23:47:03 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 12:10:07 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	display_cursor_right(int n)
 void	display_refresh_buffer(const t_line *line)
 {
 	display_clear_line();
-	write(STDOUT_FILENO, "$> ", 3);
+	write(STDOUT_FILENO, PROMPT, strlen(PROMPT));
 	write(STDOUT_FILENO, line->buffer, line->len);
 	display_cursor_left(line->len - line->pos);
 }
