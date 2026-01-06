@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 17:03:16 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 17:00:48 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 19:03:30 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	manage_terminal(t_term *terminal)
 		if (key.key == KEY_ESC || key.key == KEY_CTRL_D)
 			break ;
 		if (is_shortcuts_key(key))
-			handle_shortcuts(&line, key);
+			handle_shortcuts(terminal, &line, key);
 		else if (is_mouvements_key(key))
 			handle_mouvements(&line, key);
 		else if (key.key == KEY_BACKSPACE)

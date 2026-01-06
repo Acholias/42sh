@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:21:15 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 18:34:52 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 19:06:27 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	buffer_free(t_line *line);
 void	buffer_insert(t_line *line, char c);
 void	buffer_backspace(t_line *line);
 void	buffer_delete(t_line *line);
-void	buffer_clear_from_cursor(t_term *term, t_line *line);   // CTRL + k
-void	buffer_clear_before_cursor(t_term *term, t_line *line); // CTRL + U
-void	buffer_delete_word(t_term *term, t_line *line);		  // CTRL + W
+void	buffer_clear_from_cursor(t_term *term, t_line *line);
+void	buffer_clear_before_cursor(t_term *term, t_line *line);
+void	buffer_delete_word(t_term *term, t_line *line);
 void	buffer_delete_word_forward(t_term *term, t_line *line);
 void	buffer_transpose_chars(t_line *line);
 void	buffer_yank(t_term *term, t_line *line);

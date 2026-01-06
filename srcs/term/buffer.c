@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:20:11 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 16:57:46 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 19:06:48 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	buffer_delete_word(t_term *term, t_line *line)
 	line->pos = start;
 }
 
-void	buffer_delete_word_foreward(t_term *term, t_line *line)
+void	buffer_delete_word_forward(t_term *term, t_line *line)
 {
 	int	end;
 
