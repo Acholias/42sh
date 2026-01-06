@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/06 21:16:03 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/06 23:43:24 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRCS		= term_init.c \
 				shortcuts.c \
 				mouvements.c \
 				signals.c \
-				history.c
+				history.c \
+				terminal_manager.c
 
 
 OBJS		= $(addprefix $(OBJSDIR)/, main.o $(SRCS:.c=.o))

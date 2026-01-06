@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:20:11 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 19:06:48 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 23:50:22 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,4 +286,13 @@ void	buffer_transpose_words(t_line *line)
 	if (!get_word_boundaries(line, &w1_start, &w1_end, &w2_start, &w2_end))
 		return ;
 	swap_word_in_buffer(line, w1_start, w1_end, w2_start, w2_end);
+}
+
+void	buffer_reset(t_line *line)
+{
+	if (!line || !line->buffer)
+		return ;
+	line->buffer[0] ='\0';
+	line->pos = 0;
+	line->len = 0;
 }

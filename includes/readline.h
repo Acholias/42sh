@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:21:15 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 20:47:54 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 23:50:50 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	buffer_uppercase_word(t_line *line);
 void	buffer_lowercase_word(t_line *line);
 void	buffer_capitalize_word(t_line *line);
 void	buffer_transpose_words(t_line *line);
+void	buffer_reset(t_line *line);
 
 // cursor.c
 bool	is_word_separator(char c);

@@ -6,10 +6,11 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 17:33:34 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/05 23:52:46 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 23:47:55 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "includes/display.h"
 #include "includes/term.h"
 
 int main(void)
@@ -25,6 +26,7 @@ int main(void)
 	}
 	manage_terminal(&terminal);
 	terminal_disable(&terminal);
-	write(STDOUT_FILENO, "\n", 1);
+	display_newline();
+	close(6);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:27:09 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 19:33:30 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 23:44:51 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef	struct s_term
 int		terminal_init(t_term *terminal);
 int		terminal_enable(t_term *terminal);
 int		terminal_disable(t_term *terminal);
-int		manage_terminal(t_term	*terminal);
 
 // signals.c
 void	handle_sigint(int signal);
@@ -53,5 +52,8 @@ void	signal_set_current_line(t_line *line);
 void	signal_set_current_term(t_term *term);
 void	signals_init_interactive(void);
 void	signals_restore_default(void);
+
+// terminal_manager.c
+int		manage_terminal(t_term *terminal);
 
 #endif

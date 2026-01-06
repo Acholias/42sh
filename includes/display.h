@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 20:04:03 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 18:58:21 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 23:46:06 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	display_restore_cursor(void);
 int		display_get_terminal_width(void);
 void	display_refresh_buffer(const t_line *line);
 void	display_refresh_with_clear(const t_line *line);
-void	dislay_newline(void);
 void	display_newline(void);
 void	display_prompt(void);
 void	display_bell(void);

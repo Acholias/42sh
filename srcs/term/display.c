@@ -6,15 +6,13 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 19:59:07 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 18:55:26 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 23:46:35 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/display.h"
 #include "../../includes/readline.h"
-#include <asm-generic/ioctls.h>
 #include <sys/ioctl.h>
-#include <unistd.h>
 
 void	display_clear_line(void)
 {
@@ -113,7 +111,7 @@ void	display_refresh_with_clear(const t_line *line)
 	display_refresh_buffer(line);
 }
 
-void	dislay_newline(void)
+void	display_newline(void)
 {
 	write(STDOUT_FILENO, "\n", 1);
 }
