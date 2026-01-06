@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:21:15 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 16:59:30 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 18:34:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	cursor_word_backward(t_line *line);
 
 //shortcuts.c
 bool	is_shortcuts_key(t_key_result key);
-void	handle_shortcuts(t_line *line, t_key_result key);
+void	handle_shortcuts(t_term *term, t_line *line, t_key_result key);
 
 // mouvements.c
 bool	is_mouvements_key(t_key_result key);
