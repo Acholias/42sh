@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 17:03:16 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 12:15:21 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 17:00:48 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	terminal_init(t_term *terminal)
 	sa.sa_handler = handle_signal;
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
+	terminal->killring = NULL;
 	return (0);
 }
 
@@ -52,6 +53,11 @@ int	terminal_disable(t_term *terminal)
 		return (0);
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &terminal->orig) == -1)
 		return (-1);
+	if (terminal->killring)
+	{
+		free(terminal->killring);
+		terminal->killring = NULL;
+	}
 	terminal->enabled = false;
 	return (0);
 }

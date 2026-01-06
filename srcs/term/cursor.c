@@ -6,13 +6,13 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:45:14 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 16:06:27 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 16:07:48 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/readline.h"
 
-static bool	is_word_separator(char c)
+bool	is_word_separator(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\0');
 }

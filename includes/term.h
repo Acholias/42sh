@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:27:09 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 12:07:24 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/06 16:11:40 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef	struct s_term
 	struct	termios orig;
 	struct	termios	raw;
 	bool	enabled;
-
+	char	*killring;
 }	t_term;
 
 # define PROMPT "\033[1;31m42sh> \033[0m"
