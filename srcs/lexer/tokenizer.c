@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:40:03 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 18:29:22 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 18:48:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_token	*handle_word(const char **input)
 
 	start = *input;
 	len = 0;
-	while (start[len] && !is_whitespace(start[len] && !is_operator_char(start[len]) && !is_special_char(start[len])))
+	while (start[len] && !is_whitespace(start[len]) && !is_operator_char(start[len]) && !is_special_char(start[len]))
 		len++;
 	if (len == 0)
 		return (NULL);
@@ -78,4 +78,24 @@ t_token	*get_next_token(const char **input)
 	if (is_special_char(**input))
 		return (handle_special(input));
 	return (handle_word(input));
+}
+
+t_token	*lexer_tokenizer(const char *input)
+{
+	t_token	*head;
+	t_token	*token;
+
+	head = NULL;
+	while (*input)
+	{
+		token = get_next_token(&input);
+		if (!token)
+		{
+			token_free(head);
+			return (NULL);
+		}
+		if (token)
+			token_add_back(&head, token);
+	}
+	return (head);
 }

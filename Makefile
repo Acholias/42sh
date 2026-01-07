@@ -6,13 +6,14 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/07 18:30:15 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/07 18:42:35 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= 42sh
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g -Iincludes
+DEBUG_FLAGS	= -DDEBUG
 SRCDIR		= srcs
 OBJSDIR		= obj
 
@@ -33,7 +34,8 @@ HISTORY_SRCS	= history.c \
 
 LEXER_SRCS		= token_utils.c \
 				  operators.c \
-				  tokenizer.c
+				  tokenizer.c \
+				  token_debug.c
 
 SRCS		= $(addprefix $(SRCDIR)/terminal/, $(TERMINAL_SRCS)) \
 			  $(addprefix $(SRCDIR)/line_editing/, $(LINE_EDIT_SRCS)) \
@@ -73,5 +75,8 @@ fclean: clean
 	@rm -rf ~/.42sh_history
 
 re: fclean all
+debug: CFLAGS += $(DEBUG_FLAGS)
+debug: re
 
+.PHONY: all clean fclean re debug
 .PHONY: all clean fclean re

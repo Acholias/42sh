@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:19:02 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 17:06:15 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 18:41:03 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../../includes/readline.h"
 #include "../../includes/display.h"
 #include "../../includes/history.h"
+#include "../../includes/lexer.h"
 
 static void	handle_history_navigation(t_history *hist, t_line *line, t_key_result key)
 {
@@ -144,7 +145,15 @@ static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_k
 	{
 		display_newline();
 		if (line->len > 0)
+		{
 			history_add(hist, line->buffer);
+			t_token	*token = lexer_tokenizer(line->buffer);
+			#ifdef DEBUG
+			if (token)
+				token_print_all(token);
+			#endif
+			token_free(token);
+		}
 		history_reset_position(hist);
 		display_prompt();
 		buffer_reset(line);

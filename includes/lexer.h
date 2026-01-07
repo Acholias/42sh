@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:07:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 18:29:59 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 18:42:16 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ t_token	*handle_sigle_operator(const char **input);
 t_token	*handle_double_operator(const char **input);
 
 // tokenizer.c
+t_token	*lexer_tokenizer(const char *input);
 
+// debug
+void	token_print_all(t_token *token);
 
 #endif
