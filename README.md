@@ -36,9 +36,10 @@ Point d'entrée + boucle principale REPL (Read-Eval-Print Loop)
 - **Cas spéciaux** : Chemins relatifs/absolus, complétion milieu de mot, échappement espaces, double Tab
 
 #### **lexer/** - Tokenisation
-- `tokenize.c` - Découpage en tokens
+- `tokenizer.c` - Découpage en tokens
+- `operators.c` - Détection opérateurs simple et doubles (|, >, &&, ||, ;, &, etc.)
+- `token_utils` - Fonctions de bases pour les tokens (new_token, etc.)
 - `quotes.c` - Gestion quotes/inhibiteurs (", ', \)
-- `operators.c` - Détection opérateurs (|, >, &&, ||, ;, &, etc.)
 - `heredoc.c` - Gestion <<
 
 #### **parser/** - Analyse syntaxique
