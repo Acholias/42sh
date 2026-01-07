@@ -2,10 +2,6 @@
 
 Un shell POSIX complet avec gestion avancée de la ligne de commande, job control et outils de debug.
 
-> **⚠️ PRINCIPE FONDAMENTAL : STABILITÉ > FEATURES**  
-> Un 42sh simple mais indestructible vaut mieux qu'un 42sh avec plein de features qui segfault.  
-> **Zéro** segfault, **zéro** memory leak, **zéro** comportement inattendu.
-
 ## 📁 Structure du Projet
 
 ### `src/` - Code source principal
@@ -14,7 +10,7 @@ Un shell POSIX complet avec gestion avancée de la ligne de commande, job contro
 Point d'entrée + boucle principale REPL (Read-Eval-Print Loop)
 
 #### **terminal/** - Gestion du terminal (mode raw)
-- `terminal_manager.c` - Regroupe les fonctions pour l'utilisation du terminal
+- `readline.c` - Boucle de lecture principale
 - `term_init.c` - Initialisation/restauration terminal (termios)
 - `keys.c` - Lecture et détection des touches
 - `display.c` - Affichage et déplacement curseur
@@ -23,7 +19,6 @@ Point d'entrée + boucle principale REPL (Read-Eval-Print Loop)
 #### **line_editing/** - Édition de ligne interactive
 - `buffer.c` - Buffer éditable (insertion/suppression)
 - `cursor.c` - Gestion position curseur
-- `readline.c` - Boucle de lecture principale
 - `shortcuts.c` - Ctrl-A, Ctrl-E, Ctrl-K, Ctrl-U, Ctrl-W, etc.
 - `movement.c` - Flèches, Home, End, Ctrl-Left/Right
 
@@ -249,7 +244,7 @@ Compilés avec `-DDEBUG`
 - [x] libft intégrée
 - [x] Termios init
 
-### Phase 1 : Readline Basique (1-2 semaines)
+### Phase 1 : Readline Basique
 **Objectif** : Pouvoir taper une ligne et la récupérer
 - [ ] Buffer simple (insertion, backspace)
 - [ ] Affichage prompt
@@ -260,7 +255,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : `42sh` affiche prompt, je tape "hello", ça affiche "hello"
 
-### Phase 2 : Execution Minimale (1 semaine)
+### Phase 2 : Execution Minimale
 **Objectif** : Exécuter des commandes simples
 - [ ] Lexer ultra-simple (split sur espaces)
 - [ ] Parser minimal (une seule commande)
@@ -272,7 +267,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : `ls`, `echo hello`, `/bin/ls`, `exit 42`
 
-### Phase 3 : Variables (1 semaine)
+### Phase 3 : Variables
 **Objectif** : Gérer les variables shell
 - [ ] Structure hash table variables
 - [ ] Parsing `name=value`
@@ -285,7 +280,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : `VAR=hello`, `echo $VAR`, `export VAR`, `unset VAR`
 
-### Phase 4 : Redirections (1-2 semaines)
+### Phase 4 : Redirections
 **Objectif** : Gérer >, >>, <, <<, >&, <&
 - [ ] Parsing redirections dans lexer
 - [ ] AST avec nœuds redirection
@@ -298,7 +293,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : `ls > out`, `cat < in`, `ls 2>&1`, heredoc
 
-### Phase 5 : Pipes (1 semaine)
+### Phase 5 : Pipes
 **Objectif** : Gérer les pipes
 - [ ] Parsing `|`
 - [ ] AST pipeline
@@ -308,7 +303,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : `ls | grep test`, `cat file | grep x | wc -l`
 
-### Phase 6 : Opérateurs Logiques (1 semaine)
+### Phase 6 : Opérateurs Logiques
 **Objectif** : &&, ||, ;
 - [ ] Parsing &&, ||, ;
 - [ ] AST avec nœuds logiques
@@ -318,7 +313,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : `ls && echo ok`, `false || echo fail`, `ls ; pwd`
 
-### Phase 7 : Job Control (2 semaines)
+### Phase 7 : Job Control
 **Objectif** : Background, jobs, fg, bg
 - [ ] Opérateur `&`
 - [ ] Structure jobs list
@@ -331,7 +326,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : `sleep 10 &`, `jobs`, `fg`, `bg`
 
-### Phase 8 : Signaux Complets (1 semaine)
+### Phase 8 : Signaux Complets
 **Objectif** : Tous les signaux corrects
 - [ ] SIGINT (Ctrl+C) en mode interactif
 - [ ] SIGQUIT (Ctrl+\)
@@ -343,7 +338,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : Ctrl+C n'arrête pas le shell, kill processes correctement
 
-### Phase 9 : Built-ins Avancés (1 semaine)
+### Phase 9 : Built-ins Avancés
 **Objectif** : Finir tous les built-ins mandatory
 - [ ] cd complet (-, OLDPWD, CDPATH)
 - [ ] type complet
@@ -352,7 +347,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : `cd -`, `cd ~`, `type ls`, `type cd`
 
-### Phase 10 : Polish & Stabilisation (2 semaines minimum)
+### Phase 10 : Polish & Stabilisation
 **Objectif** : ZÉRO bug
 - [ ] Tests exhaustifs (tous les edge cases)
 - [ ] Valgrind sur TOUT
@@ -365,7 +360,7 @@ Compilés avec `-DDEBUG`
 
 **Test** : Lancer les 100+ tests, tout doit passer
 
-### Phase 11+ : Bonus (si temps et si stable)
+### Phase 11+ : Bonus
 Ordre suggéré :
 1. Quotes/inhibiteurs (", ', \)
 2. Globbing (*, ?, [])
@@ -377,117 +372,10 @@ Ordre suggéré :
 
 ```bash
 make          # Compilation standard
-make debug    # Compilation avec -DDEBUG -g3 -fsanitize=address
-make valgrind # Lance valgrind --leak-check=full
-make test     # Lance suite de tests
-make clean    # Nettoyage objets
-make fclean   # Nettoyage complet
+make clean    # Nettoyage du dossier objets
+make fclean   # Nettoyage complet (dossier objets + exécutable)
 make re       # Recompilation
 ```
-
-## 🧪 Tests Critiques
-
-### Tests Minimum (à passer AVANT correction)
-```bash
-# Commandes simples
-ls
-ls -la
-/bin/ls
-echo hello world
-exit
-exit 42
-
-# Variables
-VAR=hello
-echo $VAR
-export VAR
-env | grep VAR
-unset VAR
-
-# Redirections
-echo hello > out
-cat < out
-echo hello >> out
-cat << EOF
-ls 2>&1
-ls 2>&1 > out  # Ordre important!
-ls > out 2>&1  # Ordre différent!
-
-# Pipes
-ls | cat
-ls | grep test
-ls | grep test | wc -l
-
-# Opérateurs logiques
-true && echo ok
-false || echo fail
-ls ; pwd
-false && echo should not print
-
-# Job control
-sleep 10 &
-jobs
-fg
-# Ctrl+Z
-bg
-
-# Signaux
-# Ctrl+C ne doit PAS quitter le shell
-# Ctrl+D sur ligne vide doit quitter
-# Ctrl+Z doit stopper foreground job
-
-# Built-ins
-cd /tmp
-pwd
-cd -
-type ls
-type cd
-set
-export TEST=value
-unset TEST
-
-# Edge cases
-echo ""
-echo ''
-ls | | cat  # syntax error
-> out       # syntax error
-cat < < in  # syntax error
-```
-
-## ⚠️ Pièges Courants
-
-### 1. Précédence des opérateurs
-```bash
-# Ces deux commandes sont DIFFÉRENTES:
-ls doesnotexist . 2>&1 >/dev/null
-ls doesnotexist . >/dev/null 2>&1
-```
-
-### 2. Memory leaks
-- Toujours free l'AST
-- Toujours free les tokens
-- Close TOUS les FDs ouverts
-- Attention aux leaks dans les signaux
-
-### 3. File Descriptors
-- Ne jamais oublier de close() après fork
-- dup2() puis close() l'ancien FD
-- Attention aux FDs hérités
-
-### 4. Signaux
-- sigaction, PAS signal()
-- SA_RESTART pour certains signaux
-- Masquer signaux pendant sections critiques
-
-### 5. Job Control
-- setpgid() AVANT execve()
-- tcsetpgrp() pour donner contrôle terminal
-- Reaper les zombies (SIGCHLD)
-
-### 6. Quotes
-- `"$VAR"` → expand
-- `'$VAR'` → literal
-- `\$VAR` → literal
 
 ## 📚 Ressources
 

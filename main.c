@@ -24,7 +24,7 @@ int main(void)
 		terminal_disable(&terminal);
 		return (-1);
 	}
-	manage_terminal(&terminal);
+	readline_loop(&terminal);
 	terminal_disable(&terminal);
 	display_newline();
 	close(6);

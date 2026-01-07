@@ -12,25 +12,34 @@
 
 NAME		= 42sh
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g -I.
-SRCDIR		= srcs/term
+CFLAGS		= -Wall -Wextra -Werror -g -Iincludes
+SRCDIR		= srcs
 OBJSDIR		= obj
 
-SRCS		= term_init.c \
-			  	keys.c \
-				display.c \
-				buffer.c \
-				cursor.c \
-				shortcuts.c \
-				mouvements.c \
-				signals.c \
-				history.c \
-				persistence.c \
-				search.c \
-				terminal_manager.c
+# Terminal sources
+TERMINAL_SRCS	= terminal_init.c \
+				  keys.c \
+				  display.c \
+				  signals.c \
+				  readline.c
 
+# Line editing sources
+LINE_EDIT_SRCS	= buffer.c \
+				  cursor.c \
+				  shortcuts.c \
+				  mouvements.c
 
-OBJS		= $(addprefix $(OBJSDIR)/, main.o $(SRCS:.c=.o))
+# History sources
+HISTORY_SRCS	= history.c \
+				  persistence.c \
+				  search.c
+
+# All sources with their paths
+SRCS		= $(addprefix $(SRCDIR)/terminal/, $(TERMINAL_SRCS)) \
+			  $(addprefix $(SRCDIR)/line_editing/, $(LINE_EDIT_SRCS)) \
+			  $(addprefix $(SRCDIR)/history/, $(HISTORY_SRCS))
+
+OBJS		= $(OBJSDIR)/main.o $(SRCS:$(SRCDIR)/%.c=$(OBJSDIR)/%.o)
 
 all: $(NAME)
 
@@ -40,11 +49,17 @@ $(NAME): $(OBJS)
 $(OBJSDIR)/main.o: main.c | $(OBJSDIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJSDIR)/%.o: $(SRCDIR)/%.c | $(OBJSDIR)
+$(OBJSDIR)/terminal/%.o: $(SRCDIR)/terminal/%.c | $(OBJSDIR)/terminal
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJSDIR):
-	@mkdir -p $(OBJSDIR)
+$(OBJSDIR)/line_editing/%.o: $(SRCDIR)/line_editing/%.c | $(OBJSDIR)/line_editing
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSDIR)/history/%.o: $(SRCDIR)/history/%.c | $(OBJSDIR)/history
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history:
+	@mkdir -p $@
 
 clean:
 	@rm -rf $(OBJSDIR)

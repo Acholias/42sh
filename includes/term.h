@@ -53,7 +53,7 @@ void	signal_set_current_term(t_term *term);
 void	signals_init_interactive(void);
 void	signals_restore_default(void);
 
-// terminal_manager.c
-int		manage_terminal(t_term *terminal);
+// readline.c
+int		readline_loop(t_term *terminal);
 
 #endif

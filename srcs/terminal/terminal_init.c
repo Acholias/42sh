@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   term_init.c                                        :+:      :+:    :+:   */
+/*   terminal_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 17:03:16 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 23:19:44 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/07 10:49:15 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/07 10:49:28 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/term.h"
-#include "../../includes/keys.h"
-#include "../../includes/display.h"
-#include "../../includes/readline.h"
 
 int	terminal_init(t_term *terminal)
 {

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminal_manager.c                                 :+:      :+:    :+:   */
+/*   readline.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -127,7 +127,7 @@ static void	cleanup_readline_context(t_line *line, t_history *hist)
 	history_free(hist);
 }
 
-int	manage_terminal(t_term *terminal)
+int	readline_loop(t_term *terminal)
 {
 	t_key_result	key;
 	t_line			line;
