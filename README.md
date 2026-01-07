@@ -241,7 +241,6 @@ Compilés avec `-DDEBUG`
 ### Phase 0 : Setup ✅
 - [x] Structure projet
 - [x] Makefile
-- [x] libft intégrée
 - [x] Termios init
 
 ### Phase 1 : Readline Basique
