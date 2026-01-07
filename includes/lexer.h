@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:07:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 17:21:12 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 18:29:59 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdbool.h>
+
+# define MALLOC_FAILED NULL
 
 typedef enum	e_token_type
 {
@@ -50,5 +52,18 @@ typedef struct	s_token
 	char			*value;
 	struct	s_token	*next;
 }	t_token;
+
+// token_utils.c
+t_token	*new_token(t_token_type type, const char *value);
+void	token_add_back(t_token **head, t_token *new_token);
+void	token_free(t_token *tokens);
+
+// operators.c
+bool	is_operator_char(char c);
+t_token	*handle_sigle_operator(const char **input);
+t_token	*handle_double_operator(const char **input);
+
+// tokenizer.c
+
 
 #endif

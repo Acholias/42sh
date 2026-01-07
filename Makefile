@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/07 00:40:22 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/07 18:30:15 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ HISTORY_SRCS	= history.c \
 				  persistence.c \
 				  search.c
 
-LEXER_SRCS		= tokenize.c
+LEXER_SRCS		= token_utils.c \
+				  operators.c \
+				  tokenizer.c
 
 SRCS		= $(addprefix $(SRCDIR)/terminal/, $(TERMINAL_SRCS)) \
 			  $(addprefix $(SRCDIR)/line_editing/, $(LINE_EDIT_SRCS)) \
