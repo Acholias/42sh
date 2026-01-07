@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/07 18:42:35 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/07 20:16:44 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,13 +60,13 @@ all: banner $(NAME) success
 banner:
 	@clear
 	@echo ""
-	@echo "$(RED)     ▄▄▄    ▄▄▄▄▄              ▄▄       $(NC)"
-	@echo "$(RED)    ▄███   █▀▀▀▀██▄            ██       $(NC)"
-	@echo "$(RED)   █▀ ██         ██  ▄▄█████▄  ██▄████▄ $(NC)"
-	@echo "$(RED) ▄█▀  ██       ▄█▀   ██▄▄▄▄▄ ▀  ██▀   ██ $(NC)"
-	@echo "$(RED) ████████    ▄█▀      ▀▀▀▀██▄  ██    ██ $(NC)"
-	@echo "$(RED)      ██   ▄██▄▄▄▄▄  █▄▄▄▄▄██  ██    ██ $(NC)"
-	@echo "$(RED)      ▀▀   ▀▀▀▀▀▀▀▀   ▀▀▀▀▀▀   ▀▀    ▀▀ $(NC)"
+	@echo "$(RED)      ▄▄▄    ▄▄▄▄▄              ▄▄       $(NC)"
+	@echo "$(RED)     ▄███   █▀▀▀▀██▄            ██       $(NC)"
+	@echo "$(RED)    █▀ ██         ██  ▄▄█████▄  ██▄████▄ $(NC)"
+	@echo "$(RED)  ▄█▀  ██       ▄█▀   ██▄▄▄▄▄ ▀  ██▀   ██ $(NC)"
+	@echo "$(RED)  ████████    ▄█▀      ▀▀▀▀██▄  ██    ██ $(NC)"
+	@echo "$(RED)       ██   ▄██▄▄▄▄▄  █▄▄▄▄▄██  ██    ██ $(NC)"
+	@echo "$(RED)       ▀▀   ▀▀▀▀▀▀▀▀   ▀▀▀▀▀▀   ▀▀    ▀▀ $(NC)"
 	@echo ""
 	@echo "$(WHITE)╔════════════════════════════════════════════╗$(NC)"
 	@echo "$(WHITE)║             💀  DEVELOPED BY  💀           ║$(NC)"
@@ -74,7 +74,7 @@ banner:
 	@echo "$(WHITE)║      🤡   lumugot, aka Acholias   🤡       ║$(NC)"
 	@echo "$(WHITE)╚════════════════════════════════════════════╝$(NC)"
 	@echo ""
-	@echo "$(BOLD)$(RED)         ◢◤◢◤◢◤  42SH PROJECT SETUP  ◢◤◢◤◢◤$(NC)"
+	@echo "$(BOLD)$(RED)      ◢◤◢◤◢◤  42SH PROJECT SETUP  ◢◤◢◤◢◤$(NC)"
 	@echo ""
 	@echo "$(MAGENTA)[i]$(NC) Compiling source files..."
 
