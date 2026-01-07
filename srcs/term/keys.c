@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:41:40 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 15:58:23 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 01:18:45 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ t_key_result	get_key(void)
 		res.key = KEY_CTRL_E;
 	else if (ch == 6)
 		res.key = KEY_CTRL_F;
+	else if (ch == 7)
+		res.key = KEY_CTRL_G;
 	else if (ch == 11)
 		res.key = KEY_CTRL_K;
 	else if (ch == 12)

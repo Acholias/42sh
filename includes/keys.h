@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:43:50 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 12:37:01 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 01:08:07 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_key
 	KEY_CTRL_D,
 	KEY_CTRL_E,
 	KEY_CTRL_F,
+	KEY_CTRL_G,
 	KEY_CTRL_K,
 	KEY_CTRL_L,
 	KEY_CTRL_R,

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:19:02 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 00:09:52 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 01:17:28 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,24 @@ static void	handle_history_navigation(t_history *hist, t_line *line, t_key_resul
 
 static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_key_result key)
 {
+	char	*result;
+
 	if (key.key == KEY_ESC || key.key == KEY_CTRL_D)
 		return (false);
+	if (key.key == KEY_CTRL_R)
+	{
+		result = history_search(hist);
+		if (result)
+		{
+			strcpy(line->buffer, result);
+			line->len = strlen(result);
+			line->pos = line->len;
+			free(result);
+		}
+		display_prompt();
+		display_refresh_buffer(line);
+		return (true);
+	}
 	if (key.key == KEY_ARROW_UP || key.key == KEY_ARROW_DOWN || key.key == KEY_PAGE_UP || key.key == KEY_PAGE_DOWN)
 	{
 		handle_history_navigation(hist, line, key);

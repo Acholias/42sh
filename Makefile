@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/07 00:11:07 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/07 00:40:22 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS		= term_init.c \
 				signals.c \
 				history.c \
 				persistence.c \
+				search.c \
 				terminal_manager.c
 
 
