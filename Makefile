@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/07 20:23:18 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/07 20:34:05 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,9 +69,9 @@ banner:
 	@echo "$(RED)        ▀▀   ▀▀▀▀▀▀▀▀   ▀▀▀▀▀▀   ▀▀    ▀▀ $(NC)"
 	@echo ""
 	@echo "$(WHITE)╔════════════════════════════════════════════╗$(NC)"
-	@echo "$(WHITE)║             💀  DEVELOPED BY  💀           ║$(NC)"
+	@echo "$(WHITE)║            💀  DEVELOPED BY  💀            ║$(NC)"
 	@echo "$(WHITE)╠════════════════════════════════════════════╣$(NC)"
-	@echo "$(WHITE)║      🤡   lumugot, aka Acholias   🤡       ║$(NC)"
+	@echo "$(WHITE)║              🤡  Acholias  🤡              ║$(NC)"
 	@echo "$(WHITE)╚════════════════════════════════════════════╝$(NC)"
 	@echo ""
 	@echo "$(BOLD)$(RED)      ◢◤◢◤◢◤  42SH PROJECT SETUP  ◢◤◢◤◢◤$(NC)"
