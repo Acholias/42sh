@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="42sh_logo.png" alt="42sh Logo" />
+  <img src="assets/42sh_logo.png" alt="42sh Logo" />
 </div>
 
 # 42sh
