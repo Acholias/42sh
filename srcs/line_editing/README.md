@@ -74,18 +74,18 @@ Ce module fournit toutes les fonctions d'édition et de manipulation du buffer d
 - `Page Down` → Descendre rapidement dans l'historique
 - `Ctrl+R` → Recherche interactive dans l'historique (reverse-i-search)
 - `Ctrl+G` → Annuler la recherche interactive en cours
+- `Alt+<` → Aller à la première entrée de l'historique
+- `Alt+>` → Aller à la dernière entrée de l'historique
 
 ### ✅ Signaux
 
 - `Ctrl+C` → Annuler la ligne courante (SIGINT)
 - `Ctrl+D` → EOF - Quitter le shell si la ligne est vide
 - `Ctrl+Z` → Suspendre le shell (SIGTSTP)
+- `Ctrl+\` → Quitter le shell (SIGQUIT) ⚠️ Explose le terminal
 
 ### ⏳ À implémenter
 
-- `Alt+<` → Aller à la première entrée de l'historique
-- `Alt+>` → Aller à la dernière entrée de l'historique
-- `Ctrl+\` → Quitter avec core dump (SIGQUIT)
 - `Tab` → Auto-complétion
 
 ## Rôle dans le projet

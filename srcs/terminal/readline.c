@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:19:02 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 11:52:52 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 12:09:13 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,27 @@ static void	handle_history_jump(t_history *hist, t_line *line, t_key_result key)
 	}
 }
 
+static void	catch_ctrl_backslash(t_term *term, t_history *hist, t_line *line)
+{
+	history_save_default(hist);
+	buffer_free(line);
+	history_free(hist);
+	if (term)
+		terminal_disable(term);
+	signal(SIGQUIT, SIG_DFL);
+}
+
 static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_key_result key)
 {
 	char	*result;
 
 	if (key.key == KEY_ESC || key.key == KEY_CTRL_D)
 		return (false);
+	if (key.key == KEY_CTRL_BACKSLASH)
+	{
+		catch_ctrl_backslash(term, hist, line);
+		return (false);
+	}
 	if (key.key == KEY_CTRL_R)
 	{
 		result = history_search(hist);
@@ -157,7 +172,7 @@ static int	init_readline_context(t_term *term, t_line *line, t_history **hist)
 	return (0);
 }
 
-static void	cleanup_readline_context(t_line *line, t_history *hist)
+void	cleanup_readline_context(t_line *line, t_history *hist)
 {
 	history_save_default(hist);
 	signal_set_current_line(NULL);

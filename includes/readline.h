@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:21:15 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 23:50:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 12:09:59 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "term.h"
 # include "keys.h"
+# include "history.h"
 
 typedef struct s_line
 {
@@ -23,6 +24,9 @@ typedef struct s_line
 	int		pos;
 	int		cap;
 }	t_line;
+
+// readline.c
+void	cleanup_readline_context(t_line *line, t_history *hist);
 
 // buffer.c
 void	buffer_init(t_line *line, int capacity);
