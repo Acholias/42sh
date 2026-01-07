@@ -246,12 +246,12 @@ Compilés avec `-DDEBUG`
 
 ### Phase 1 : Readline Basique
 **Objectif** : Pouvoir taper une ligne et la récupérer
-- [ ] Buffer simple (insertion, backspace)
-- [ ] Affichage prompt
-- [ ] Enter → retourne la ligne
-- [ ] Ctrl+D (EOF)
-- [ ] Ctrl+C (interrupt)
-- [ ] Gestion basique curseur (←→)
+- [x] Buffer simple (insertion, backspace)
+- [x] Affichage prompt
+- [x] Enter → retourne la ligne
+- [x] Ctrl+D (EOF)
+- [x] Ctrl+C (interrupt)
+- [x] Gestion basique curseur (←→)
 
 **Test** : `42sh` affiche prompt, je tape "hello", ça affiche "hello"
 
