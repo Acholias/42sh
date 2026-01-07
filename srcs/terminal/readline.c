@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readline.c                                        :+:      :+:    :+:   */
+/*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:19:02 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 01:17:28 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 11:52:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,40 @@ static void	handle_history_navigation(t_history *hist, t_line *line, t_key_resul
 	}
 }
 
+static void	handle_history_jump(t_history *hist, t_line *line, t_key_result key)
+{
+	char	*entry;
+
+	if (key.key == KEY_ALT_LESS)
+	{
+		entry = history_goto_first(hist);
+		if (entry)
+		{
+			strcpy(line->buffer, entry);
+			line->len = strlen(entry);
+			line->pos = line->len;
+			display_refresh_buffer(line);
+		}
+	}
+	else if (key.key == KEY_ALT_GREATER)
+	{
+		entry = history_goto_last(hist);
+		if (entry)
+		{
+			strcpy(line->buffer, entry);
+			line->len = strlen(entry);
+			line->pos = line->len;
+		}
+		else
+		{
+			line->buffer[0] = '\0';
+			line->pos = 0;
+			line->len = 0;
+		}
+		display_refresh_buffer(line);
+	}
+}
+
 static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_key_result key)
 {
 	char	*result;
@@ -70,6 +104,11 @@ static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_k
 		}
 		display_prompt();
 		display_refresh_buffer(line);
+		return (true);
+	}
+	if (key.key == KEY_ALT_GREATER || key.key == KEY_ALT_LESS)
+	{
+		handle_history_jump(hist, line, key);
 		return (true);
 	}
 	if (key.key == KEY_ARROW_UP || key.key == KEY_ARROW_DOWN || key.key == KEY_PAGE_UP || key.key == KEY_PAGE_DOWN)

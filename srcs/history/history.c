@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 20:36:15 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 21:17:56 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 11:44:45 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,4 +147,24 @@ void	history_save_temp(t_history *hist, const char *line)
 	if (hist->temp_line)
 		free(hist->temp_line);
 	hist->temp_line = strdup(line);
+}
+
+char	*history_goto_first(t_history *hist)
+{
+	if (!hist || hist->size == 0)
+		return (NULL);
+	if (hist->current == hist->size)
+		history_save_temp(hist, "");
+	hist->current = 0;
+	return (hist->entries[0]);
+}
+
+char	*history_goto_last(t_history *hist)
+{
+	if (!hist || hist->size == 0)
+		return (NULL);
+	hist->current = hist->size;
+	if (hist->temp_line)
+	 return (hist->temp_line);
+	return ("");
 }
