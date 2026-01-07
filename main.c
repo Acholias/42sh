@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 17:33:34 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 23:47:55 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 16:41:27 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int main(void)
 	readline_loop(&terminal);
 	terminal_disable(&terminal);
 	display_newline();
-	close(6);
+	close(6); // WSL PROTECTION
 	return (0);
 }

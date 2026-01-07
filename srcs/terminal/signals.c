@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 00:49:42 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 12:06:25 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 16:21:32 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void	signals_init_interactive(void)
 
 	sa.sa_handler = handle_sigcont;
 	sigaction(SIGCONT, &sa, NULL);
+
+	// signal(SIGQUIT, SIG_IGN);
 }
 
 void	signals_restore_default(void)

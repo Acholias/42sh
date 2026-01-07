@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:19:02 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 12:28:17 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/07 16:50:20 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static void	handle_history_navigation(t_history *hist, t_line *line, t_key_resul
 
 	if (key.key == KEY_ARROW_UP || key.key == KEY_PAGE_UP)
 	{
+		if (hist->current == hist->size)
+			history_save_temp(hist, line->buffer);
 		entry = history_prev(hist);
 		if (entry)
 		{
-			if (hist->current == hist->size - 1)
-				history_save_temp(hist, line->buffer);
 			strcpy(line->buffer, entry);
 			line->len = strlen(entry);
 			line->pos = line->len;
@@ -44,9 +44,18 @@ static void	handle_history_navigation(t_history *hist, t_line *line, t_key_resul
 		}
 		else
 		{
-			line->buffer[0] = '\0';
-			line->pos = 0;
-			line->len = 0;
+			if (hist->temp_line)
+			{
+				strcpy(line->buffer, hist->temp_line);
+				line->len = strlen(hist->temp_line);
+				line->pos = line->len;
+			}
+			else
+			{
+				line->buffer[0] = '\0';
+				line->pos = 0;
+				line->len = 0;
+			}
 		}
 		display_refresh_buffer(line);
 	}
@@ -93,7 +102,10 @@ static void	catch_ctrl_backslash(t_term *term, t_history *hist, t_line *line)
 	history_free(hist);
 	if (term)
 		terminal_disable(term);
+	write(STDOUT_FILENO, "^\\", 2);
+	close(6); // WSL PROTECTION
 	signal(SIGQUIT, SIG_DFL);
+	raise(SIGQUIT);
 }
 
 static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_key_result key)
@@ -103,10 +115,7 @@ static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_k
 	if (key.key == KEY_ESC || key.key == KEY_CTRL_D)
 		return (false);
 	if (key.key == KEY_CTRL_BACKSLASH)
-	{
 		catch_ctrl_backslash(term, hist, line);
-		return (false);
-	}
 	if (key.key == KEY_CTRL_R)
 	{
 		result = history_search(hist);
