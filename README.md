@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="42sh_logo.png" alt="42sh Logo" />
+</div>
+
 # 42sh
 
 Un shell POSIX complet avec gestion avancée de la ligne de commande, job control et outils de debug.
