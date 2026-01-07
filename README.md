@@ -125,12 +125,20 @@ Compilés avec `-DDEBUG`
 - `colors.c` - Utilitaires couleurs/box drawing
 
 ### `include/` - Headers
+
+**✅ Créés (Terminal/Readline/History):**
+- `term.h` - Structures terminal (t_term, termios, signaux)
+- `readline.h` - Structures line editing (t_line, buffer, curseur)
+- `keys.h` - Énumération touches et séquences clavier
+- `display.h` - Prototypes affichage et refresh
+- `history.h` - Structures historique (t_history, navigation, persistance)
 - `shell.h` - Structures principales (t_shell, t_token, t_ast_node, etc.)
-- `terminal.h` - Structures terminal (t_term, t_readline)
-- `lexer.h`, `parser.h`, `executor.h`
-- `builtins.h`
-- `environment.h`
-- `jobs.h`
+- `lexer.h` - Tokenisation et lexer
+- `parser.h` - Parsing et construction AST
+- `executor.h` - Exécution de commandes
+- `builtins.h` - Built-ins du shell
+- `environment.h` - Variables d'environnement
+- `jobs.h` - Job control
 - `debug.h` - Macros debug (DEBUG_MEMORY, DEBUG_TOKENS, etc.)
 
 ### `tests/` - Tests

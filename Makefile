@@ -16,28 +16,27 @@ CFLAGS		= -Wall -Wextra -Werror -g -Iincludes
 SRCDIR		= srcs
 OBJSDIR		= obj
 
-# Terminal sources
 TERMINAL_SRCS	= terminal_init.c \
 				  keys.c \
 				  display.c \
 				  signals.c \
 				  readline.c
 
-# Line editing sources
 LINE_EDIT_SRCS	= buffer.c \
 				  cursor.c \
 				  shortcuts.c \
 				  mouvements.c
 
-# History sources
 HISTORY_SRCS	= history.c \
 				  persistence.c \
 				  search.c
 
-# All sources with their paths
+LEXER_SRCS		= tokenize.c
+
 SRCS		= $(addprefix $(SRCDIR)/terminal/, $(TERMINAL_SRCS)) \
 			  $(addprefix $(SRCDIR)/line_editing/, $(LINE_EDIT_SRCS)) \
-			  $(addprefix $(SRCDIR)/history/, $(HISTORY_SRCS))
+			  $(addprefix $(SRCDIR)/history/, $(HISTORY_SRCS)) \
+			  $(addprefix $(SRCDIR)/lexer/, $(LEXER_SRCS))
 
 OBJS		= $(OBJSDIR)/main.o $(SRCS:$(SRCDIR)/%.c=$(OBJSDIR)/%.o)
 
@@ -58,7 +57,10 @@ $(OBJSDIR)/line_editing/%.o: $(SRCDIR)/line_editing/%.c | $(OBJSDIR)/line_editin
 $(OBJSDIR)/history/%.o: $(SRCDIR)/history/%.c | $(OBJSDIR)/history
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history:
+$(OBJSDIR)/lexer/%.o: $(SRCDIR)/lexer/%.c | $(OBJSDIR)/lexer
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer:
 	@mkdir -p $@
 
 clean:
