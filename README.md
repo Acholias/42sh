@@ -22,10 +22,18 @@ Point d'entrée + boucle principale REPL (Read-Eval-Print Loop)
 - `shortcuts.c` - Ctrl-A, Ctrl-E, Ctrl-K, Ctrl-U, Ctrl-W, etc.
 - `movement.c` - Flèches, Home, End, Ctrl-Left/Right
 
-#### **history/** - Historique des commandes (BONUS)
+#### **history/** - Historique des commandes
 - `history.c` - Structure et navigation (↑↓)
 - `persistence.c` - Save/load ~/.42sh_history
 - `search.c` - Ctrl-R (recherche incrémentale)
+
+#### **completion/** - Auto-complétion Tab (BONUS)
+- `completion.c` - Fonction principale de gestion auto-complétion
+- `files.c` - Complétion fichiers/dossiers (opendir, readdir)
+- `commands.c` - Complétion commandes dans $PATH
+- `builtins.c` - Complétion builtins du shell
+- **Logique** : Extraction mot à compléter, contexte (1er mot = cmd+builtin+files, autres = files), recherche correspondances, affichage résultats (1 match = insertion auto, N matches = liste)
+- **Cas spéciaux** : Chemins relatifs/absolus, complétion milieu de mot, échappement espaces, double Tab
 
 #### **lexer/** - Tokenisation
 - `tokenize.c` - Découpage en tokens
