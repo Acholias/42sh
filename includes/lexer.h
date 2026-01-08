@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:07:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/08 16:59:44 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/08 17:52:03 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ t_token	*handle_double_operator(const char **input);
 
 // tokenizer.c
 t_token	*lexer_tokenizer(const char *input);
+
+// quotes.c
+bool	check_quotes_closed(const char *input);
+char	*extract_quoted_word(const char **input);
+
 
 // debug
 void	token_print_all(t_token *token);

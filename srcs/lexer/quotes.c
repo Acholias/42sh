@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 16:44:27 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/08 17:27:21 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/08 17:51:44 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	check_quotes_closed(const char *input)
 			closing = find_closing_quote(input, *input);
 			if (!closing)
 			{
-				fprintf(stderr ,"42sh: syntax error: unclosed quote\n");
+				fprintf(stderr ,"\r42sh: syntax error: unclosed quote\n");
 				return (NULL);
 			}
 			input = closing + 1;
@@ -98,6 +98,8 @@ static int	calculate_word_length(const char *str)
 		if (*str == '"' || *str == '\'')
 		{
 			closing = find_closing_quote(str, *str);
+			if (!closing)
+				return (0);
 			res += size_between_quotes(str, *str);
 			str = closing + 1;
 		}
@@ -118,7 +120,7 @@ static int	calculate_word_length(const char *str)
 static char	*copy_str_between_dquotes(const char **src, char *dest)
 {
 	(*src)++;
-	while (**src && **src == '"')
+	while (**src && **src != '"')
 	{
 		if (**src == '\\')
 		{
@@ -162,7 +164,7 @@ static char	*copy_backslash_escaped(const char **src, char *dest)
 	return (dest);
 }
 
-char	*extracted_quoted_word(const char **input)
+char	*extract_quoted_word(const char **input)
 {
 	char	*word;
 	char	*dest;

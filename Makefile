@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/07 20:34:05 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/08 17:42:08 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ HISTORY_SRCS	= history.c \
 
 LEXER_SRCS		= token_utils.c \
 				  operators.c \
+				  quotes.c \
 				  tokenizer.c \
 				  token_debug.c
 
