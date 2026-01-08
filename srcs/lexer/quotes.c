@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 16:44:27 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/08 17:17:07 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/08 17:27:21 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,4 +152,42 @@ static char	*copy_str_between_squotes(const char **src, char *dest)
 	if (**src == '\'')
 		(*src)++;
 	return (dest);
+}
+
+static char	*copy_backslash_escaped(const char **src, char *dest)
+{
+	(*src)++;
+	if (**src && !is_word_delimiter(**src))
+		*dest++ = *(*src)++;
+	return (dest);
+}
+
+char	*extracted_quoted_word(const char **input)
+{
+	char	*word;
+	char	*dest;
+	int		length;
+
+	if (!input || !*input || is_word_delimiter(**input))
+		return (NULL);
+	length = calculate_word_length(*input);
+	if (length == 0)
+		return (NULL);
+	word = malloc(length + 1);
+	if (!word)
+		return (MALLOC_FAILED);
+	dest = word;
+	while (**input && !is_word_delimiter(**input))
+	{
+		if (**input == '"')
+			dest = copy_str_between_dquotes(input, dest);
+		else if (**input == '\'')
+			dest = copy_str_between_squotes(input, dest);
+		else if (**input == '\\')
+			dest = copy_backslash_escaped(input, dest);
+		else
+			*dest++ = *(*input)++;
+	}
+	*dest = '\0';
+	return (word);
 }
