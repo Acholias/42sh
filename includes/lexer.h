@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:07:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 20:19:16 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/08 16:59:44 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEXER_H
 
 # include <stdlib.h>
+# include <stdio.h>
 # include <string.h>
 # include <stdbool.h>
 
