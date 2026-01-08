@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:20:00 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 18:52:08 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/08 18:09:41 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,11 @@ void	token_print_one(t_token *token)
 	write(STDOUT_FILENO, " ", 1);
 	if (token->value)
 	{
-		write(STDOUT_FILENO, "'", 1);
+		write(STDOUT_FILENO, "[", 1);
 		write(STDOUT_FILENO, COLOR_BOLD, strlen(COLOR_BOLD));
 		write(STDOUT_FILENO, token->value, strlen(token->value));
 		write(STDOUT_FILENO, COLOR_RESET, strlen(COLOR_RESET));
-		write(STDOUT_FILENO, "'", 1);
+		write(STDOUT_FILENO, "]", 1);
 	}
 	else
 		write(STDOUT_FILENO, "(null)", 6);
