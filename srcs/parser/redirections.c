@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:33:16 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 19:38:08 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/09 19:46:08 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,24 @@ void	redir_add_back(t_redir **head, t_redir *new_redir)
 
 t_ast_node	*parse_redirs(t_token **token, t_ast_node *cmd)
 {
+	t_token	*current;
+	t_redir *redir;
+	t_token	*file_token;
+	int		fd;
 
+	while (*token && is_redir((*token)->type))
+	{
+		current = advance_next_token(token);
+		if (current->type == REDIR_IN)
+			fd = 0;
+		else
+			fd = 1;
+		if (!file_token || file_token->type != WORD)
+			return (NULL);
+		redir = new_redir(current->type, fd, file_token->value);
+		if (!redir)
+			return (MALLOC_FAILED);
+		redir_add_back(&cmd->redirs, redir);
+	}
+	return (cmd);
 }

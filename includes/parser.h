@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 18:26:11 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 19:17:27 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/09 19:49:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,25 @@ typedef struct	s_ast_node
 }	t_ast_node;
 
 // parser_utils.c
-bool	is_redir(t_token_type type);
-t_token	*get_current_token(t_token *token);
-t_token	*advance_next_token(t_token **token);
-bool	match_token(t_token **token, t_token_type type);
+bool		is_redir(t_token_type type);
+t_token		*get_current_token(t_token *token);
+t_token		*advance_next_token(t_token **token);
+bool		match_token(t_token **token, t_token_type type);
 
 // free_parser.c
-void	simple_cmd_free(t_simple_cmd *cmd);
+void		simple_cmd_free(t_simple_cmd *cmd);
+void		redir_free(t_redir *redirs);
+void		free_ast(t_ast_node *node);
 
 // nodes.c
 t_ast_node	*new_command_node(t_simple_cmd *cmd, t_redir *redirs);
+t_ast_node	*new_binary_node(t_node_type type, t_ast_node *left, t_ast_node *right);
+t_ast_node	new_unary_node(t_node_type type, t_ast_node *child);
+
+// redirections.c
+t_redir		*new_redir(t_token_type, int fd, char *file);
+void		redir_add_back(t_redir **head, t_redir *new_redir);
+t_ast_node	*parse_redirs(t_token **token, t_ast_node *cmd);
 
 // grammar.c
 
