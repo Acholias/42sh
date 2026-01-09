@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:41:53 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 18:43:48 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/09 21:57:19 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ t_token	*handle_sigle_operator(const char **input)
 t_token	*handle_double_operator(const char **input)
 {
 	if ((*input)[0] == '|' && (*input)[1] == '|')
-		return ((*input)++, new_token(OR, "||"));
+		return ((*input) += 2, new_token(OR, "||"));
 	if ((*input)[0] == '&' && (*input)[1] == '&')
-		return ((*input)++, new_token(AND, "&&"));
+		return ((*input) += 2, new_token(AND, "&&"));
 	if ((*input)[0] == '>' && (*input)[1] == '>')
 		return ((*input += 2, new_token(REDIR_APPEND, ">>")));
 	if ((*input)[0] == '<' && (*input)[1] == '<')

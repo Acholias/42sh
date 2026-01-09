@@ -204,8 +204,8 @@ static void	print_ast_redirections(t_redir *redirs, int depth)
 	current = redirs;
 	while (current)
 	{
+		write(STDOUT_FILENO, "\r", 1);
 		print_ast_indent(depth);
-		write(STDOUT_FILENO, "  ", 2);
 		write(STDOUT_FILENO, COLOR_CYAN, strlen(COLOR_CYAN));
 		write(STDOUT_FILENO, "[REDIR: ", 8);
 		write(STDOUT_FILENO, get_token_type_name(current->type),
@@ -225,6 +225,7 @@ static void	print_ast_tree(t_ast_node *node, int depth)
 {
 	if (!node)
 		return ;
+	write(STDOUT_FILENO, "\r", 1);
 	print_ast_indent(depth);
 	write(STDOUT_FILENO, COLOR_YELLOW, strlen(COLOR_YELLOW));
 	write(STDOUT_FILENO, get_node_type_name(node->type),
@@ -232,7 +233,6 @@ static void	print_ast_tree(t_ast_node *node, int depth)
 	write(STDOUT_FILENO, COLOR_RESET, strlen(COLOR_RESET));
 	if (node->type == NODE_COMMAND)
 	{
-		write(STDOUT_FILENO, " ", 1);
 		print_ast_command(node->cmd);
 	}
 	write(STDOUT_FILENO, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:33:16 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 21:29:32 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/09 22:02:51 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	redir_add_back(t_redir **head, t_redir *new_redir)
 {
 	t_redir	*current;
 
-	if (!head || new_redir)
+	if (!head || !new_redir)
 		return ;
 	if (!*head)
 	{
