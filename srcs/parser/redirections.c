@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:33:16 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 19:46:08 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/09 21:29:32 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_ast_node	*parse_redirs(t_token **token, t_ast_node *cmd)
 	t_token	*file_token;
 	int		fd;
 
+	file_token = NULL;
 	while (*token && is_redir((*token)->type))
 	{
 		current = advance_next_token(token);
@@ -58,6 +59,7 @@ t_ast_node	*parse_redirs(t_token **token, t_ast_node *cmd)
 			fd = 0;
 		else
 			fd = 1;
+		file_token = advance_next_token(token);
 		if (!file_token || file_token->type != WORD)
 			return (NULL);
 		redir = new_redir(current->type, fd, file_token->value);

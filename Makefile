@@ -46,10 +46,18 @@ LEXER_SRCS		= token_utils.c \
 				  tokenizer.c \
 				  token_debug.c
 
+PARSER_SRCS		= parser.c \
+				  nodes.c \
+				  grammar.c \
+				  redirections.c \
+				  parser_utils.c \
+				  free_parser.c
+
 SRCS		= $(addprefix $(SRCDIR)/terminal/, $(TERMINAL_SRCS)) \
 			  $(addprefix $(SRCDIR)/line_editing/, $(LINE_EDIT_SRCS)) \
 			  $(addprefix $(SRCDIR)/history/, $(HISTORY_SRCS)) \
-			  $(addprefix $(SRCDIR)/lexer/, $(LEXER_SRCS))
+			  $(addprefix $(SRCDIR)/lexer/, $(LEXER_SRCS)) \
+			  $(addprefix $(SRCDIR)/parser/, $(PARSER_SRCS))
 
 OBJS		= $(OBJSDIR)/main.o $(SRCS:$(SRCDIR)/%.c=$(OBJSDIR)/%.o)
 
@@ -114,7 +122,11 @@ $(OBJSDIR)/lexer/%.o: $(SRCDIR)/lexer/%.c | $(OBJSDIR)/lexer
 	@printf "    $(YELLOW)→$(NC) Compiling lexer/$*.c\n"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer:
+$(OBJSDIR)/parser/%.o: $(SRCDIR)/parser/%.c | $(OBJSDIR)/parser
+	@printf "    $(YELLOW)→$(NC) Compiling parser/$*.c\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer $(OBJSDIR)/parser:
 	@mkdir -p $@
 
 clean:

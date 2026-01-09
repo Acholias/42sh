@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 18:26:11 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 19:49:52 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/09 21:27:10 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		free_ast(t_ast_node *node);
 // nodes.c
 t_ast_node	*new_command_node(t_simple_cmd *cmd, t_redir *redirs);
 t_ast_node	*new_binary_node(t_node_type type, t_ast_node *left, t_ast_node *right);
-t_ast_node	new_unary_node(t_node_type type, t_ast_node *child);
+t_ast_node	*new_unary_node(t_node_type type, t_ast_node *child);
 
 // redirections.c
 t_redir		*new_redir(t_token_type, int fd, char *file);
@@ -75,7 +75,10 @@ void		redir_add_back(t_redir **head, t_redir *new_redir);
 t_ast_node	*parse_redirs(t_token **token, t_ast_node *cmd);
 
 // grammar.c
+t_ast_node	*parse_complete_command(t_token **token);
 
+// parser.c
+t_ast_node	*parser_build_ast(t_token *token);
 
 #endif
 
