@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 18:20:00 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/08 18:09:41 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/09 18:37:45 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,8 @@ static const char	*get_token_type_name(t_token_type type)
 		return ("LBRACE");
 	if (type == RBRACE)
 		return ("RBRACE");
-	if (type == DQUOTE)
-		return ("DQUOTE");
-	if (type == SQUOTE)
-		return ("SQUOTE");
-	if (type == BACKSLASH)
-		return ("BACKSLASH");
-	if (type == DOLLAR)
-		return ("DOLLAR");
 	if (type == DOLLAR_BRACE)
 		return ("DOLLAR_BRACE");
-	if (type == TILDE)
-		return ("TILDE");
 	return ("UNKNOWN");
 }
 
@@ -86,8 +76,6 @@ static const char	*get_token_color(t_token_type type)
 		return (COLOR_CYAN);
 	if (type == LPAREN || type == RPAREN || type == LBRACE || type == RBRACE)
 		return (COLOR_MAGENTA);
-	if (type == DQUOTE || type == SQUOTE || type == BACKSLASH)
-		return (COLOR_RED);
 	return (COLOR_RESET);
 }
 
