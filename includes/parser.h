@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 18:26:11 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 19:02:46 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/09 19:17:27 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ bool	is_redir(t_token_type type);
 t_token	*get_current_token(t_token *token);
 t_token	*advance_next_token(t_token **token);
 bool	match_token(t_token **token, t_token_type type);
+
+// free_parser.c
+void	simple_cmd_free(t_simple_cmd *cmd);
+
+// nodes.c
+t_ast_node	*new_command_node(t_simple_cmd *cmd, t_redir *redirs);
 
 // grammar.c
 
