@@ -20,6 +20,9 @@
 
 # define MALLOC_FAILED NULL
 
+// Forward declaration pour ast_print_debug
+typedef struct s_ast_node	t_ast_node;
+
 typedef enum	e_token_type
 {
 	WORD,
@@ -69,5 +72,6 @@ char	*extract_quoted_word(const char **input);
 
 // debug
 void	token_print_all(t_token *token);
+void	ast_print_debug(t_ast_node *ast);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:19:02 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 18:41:03 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/09 21:40:11 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../../includes/display.h"
 #include "../../includes/history.h"
 #include "../../includes/lexer.h"
+#include "../../includes/parser.h"
 
 static void	handle_history_navigation(t_history *hist, t_line *line, t_key_result key)
 {
@@ -152,6 +153,13 @@ static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_k
 			if (token)
 				token_print_all(token);
 			#endif
+			t_ast_node	*ast = parser_build_ast(token);
+			#ifdef DEBUG
+			if (ast)
+				ast_print_debug(ast);
+			#endif
+			if (ast)
+				free_ast(ast);
 			token_free(token);
 		}
 		history_reset_position(hist);
