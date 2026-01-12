@@ -24,6 +24,3 @@
 - `REDIR_FD_OUT` → `>&` Aggregation FD
 - `DQUOTE` → `"` Double quote
 - `SQUOTE` → `'` Simple quote
-- `BACKSLASH` → `\` Inhibiteur
-- `DOLLAR` → `$` Variable
-- `TILDE` → `~` Tilde expansion

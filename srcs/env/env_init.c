@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 08:31:33 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/12 09:51:04 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/12 13:46:53 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strndup(const char *str, int len)
 	index = 0;
 	dup = malloc(sizeof(char) * (len + 1));
 	if (!dup)
-		return (NULL);
+		return (MALLOC_FAILED);
 	while (index < len)
 	{
 		dup[index] = str[index];
