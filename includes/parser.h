@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 18:26:11 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 21:27:10 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/12 07:46:43 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ typedef struct	s_ast_node
 	t_redir				*redirs;
 	struct	s_ast_node	*left;
 	struct	s_ast_node	*right;
-	struct	s_ast_node	*child; // Pour SUBSHELL OU NODE_GROUP, peut etre pas utile
+	struct	s_ast_node	*child;
 }	t_ast_node;
 
 // parser_utils.c
 bool		is_redir(t_token_type type);
 t_token		*get_current_token(t_token *token);
-t_token		*advance_next_token(t_token **token);
+t_token		*get_token_and_advance(t_token **token);
 bool		match_token(t_token **token, t_token_type type);
 
 // free_parser.c

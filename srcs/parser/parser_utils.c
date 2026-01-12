@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 18:47:49 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 19:02:32 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/12 07:49:16 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token	*get_current_token(t_token *token)
 	return (token);
 }
 
-t_token	*advance_next_token(t_token **token)
+t_token	*get_token_and_advance(t_token **token)
 {
 	t_token	*current;
 
@@ -42,6 +42,6 @@ bool	match_token(t_token **token, t_token_type type)
 	current = get_current_token(*token);
 	if (!current || current->type != type)
 		return (false);
-	advance_next_token(token);
+	get_token_and_advance(token);
 	return(true);
 }		

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:00:12 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 21:28:49 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/12 07:48:02 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_ast_node	*parse_simple_command(t_token **token)
 	}
 	while (*token && (*token)->type == WORD)
 	{
-		current = advance_next_token(token);
+		current = get_token_and_advance(token);
 		cmd->argv[cmd->argc] = strdup(current->value);
 		cmd->argc++;
 	}
@@ -50,7 +50,7 @@ t_ast_node	*parse_command(t_token **token)
 		return (NULL);
 	if ((*token)->type == LPAREN)
 	{
-		advance_next_token(token);
+		get_token_and_advance(token);
 		node = parse_complete_command(token);
 		if (!match_token(token, RPAREN))
 		{
@@ -75,7 +75,7 @@ t_ast_node	*parse_pipeline(t_token **token)
 		return (NULL);
 	while (*token && (*token)->type == PIPE)
 	{
-		advance_next_token(token);
+		get_token_and_advance(token);
 		right = parse_command(token);
 		if (!right)
 		{
@@ -102,7 +102,7 @@ t_ast_node	*parse_and_or(t_token **token)
 			type = NODE_AND;
 		else
 			type = NODE_OR;
-		advance_next_token(token);
+		get_token_and_advance(token);
 		right = parse_pipeline(token);
 		if (!right)
 		{
@@ -129,7 +129,7 @@ t_ast_node	*parse_list(t_token **token)
 			type = NODE_SEQUENCE;
 		else
 			type = NODE_BACKGROUND;
-		advance_next_token(token);
+		get_token_and_advance(token);
 		if (!*token)
 			return (left);
 		right = parse_and_or(token);
