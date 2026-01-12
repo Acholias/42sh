@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/08 17:42:08 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/12 09:58:31 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,11 +53,15 @@ PARSER_SRCS		= parser.c \
 				  parser_utils.c \
 				  free_parser.c
 
+ENV_SRCS		= env_init.c \
+				  env_utils.c
+
 SRCS		= $(addprefix $(SRCDIR)/terminal/, $(TERMINAL_SRCS)) \
 			  $(addprefix $(SRCDIR)/line_editing/, $(LINE_EDIT_SRCS)) \
 			  $(addprefix $(SRCDIR)/history/, $(HISTORY_SRCS)) \
 			  $(addprefix $(SRCDIR)/lexer/, $(LEXER_SRCS)) \
-			  $(addprefix $(SRCDIR)/parser/, $(PARSER_SRCS))
+			  $(addprefix $(SRCDIR)/parser/, $(PARSER_SRCS)) \
+			  $(addprefix $(SRCDIR)/env/, $(ENV_SRCS))
 
 OBJS		= $(OBJSDIR)/main.o $(SRCS:$(SRCDIR)/%.c=$(OBJSDIR)/%.o)
 
@@ -126,7 +130,11 @@ $(OBJSDIR)/parser/%.o: $(SRCDIR)/parser/%.c | $(OBJSDIR)/parser
 	@printf "    $(YELLOW)→$(NC) Compiling parser/$*.c\n"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer $(OBJSDIR)/parser:
+$(OBJSDIR)/env/%.o: $(SRCDIR)/env/%.c | $(OBJSDIR)/env
+	@printf "    $(YELLOW)→$(NC) Compiling parser/$*.c\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer $(OBJSDIR)/parser $(OBJSDIR)/env:
 	@mkdir -p $@
 
 clean:
