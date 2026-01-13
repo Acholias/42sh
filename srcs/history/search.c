@@ -6,14 +6,13 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:26:55 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 01:23:24 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/13 19:55:28 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/history.h"
 #include "../../includes/display.h"
 #include "../../includes/keys.h"
-#include <unistd.h>
 
 static void	display_search_prompt(t_search *search, const char *match)
 {
@@ -88,8 +87,8 @@ static void	search_backspace(t_search *search, t_history *hist)
 
 static void	search_next_match(t_search *search, t_history *hist)
 {
-	char	*match;
-	int		index;
+	char			*match;
+	int				index;
 
 	if (search->match_index <= 0)
 		return ;
@@ -130,13 +129,15 @@ char	*history_search(t_history *hist)
 			display_clear_line();
 			return (result);
 		}
-		else if (key.key == KEY_ESC || key.key == KEY_CTRL_C || key.key == KEY_CTRL_G)
+		else if (key.key == KEY_CTRL_G)
 		{
+			printf("KEY CATCH !\n");
 			display_clear_line();
 			return (NULL);
 		}
-		else if (key.key == KEY_UNKNOWN && key.character >= 32 && key.character <= 126)
+		else if (key.key == KEY_UNKNOWN && isprint(key.character))
 			search_add_char(&search, hist, key.character);
 	}
+	search.active = false;
 	return (NULL);
 }

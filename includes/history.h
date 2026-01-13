@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 20:36:36 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 11:41:17 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/13 19:11:02 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdbool.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <ctype.h>
 
 # define HISTORY_SIZE 1000
 # define HISTORY_FILE ".42sh_history"

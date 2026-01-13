@@ -6,14 +6,11 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 20:45:26 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 00:08:55 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/13 18:56:16 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/history.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
 
 static char	*get_history_filepath(void)
 {

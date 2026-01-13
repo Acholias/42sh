@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:19:02 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/09 21:40:11 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/13 19:53:00 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_k
 {
 	char	*result;
 
-	if (key.key == KEY_ESC || key.key == KEY_CTRL_D)
+	if (key.key == KEY_CTRL_D)
 		return (false);
 	if (key.key == KEY_CTRL_BACKSLASH)
 		catch_ctrl_backslash(term, hist, line);

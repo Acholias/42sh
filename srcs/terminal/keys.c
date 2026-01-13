@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:41:40 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/12 13:08:54 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/13 20:23:51 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ t_key_result	get_key(void)
 	if (ch == 27)
 	{
 		res.key = parse_escape();
+		// res.key = KEY_ESC;
 		return (res);
 	}
 
@@ -186,7 +187,6 @@ t_key_result	get_key(void)
 	else if (ch == 28)
 		res.key = KEY_CTRL_BACKSLASH;
 	else
-		res.character = ch;
-	
+		res.character = ch;	
 	return (res);
 }
