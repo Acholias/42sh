@@ -14,7 +14,7 @@
 
 bool	is_operator_char(char c)
 {
-	return (c == '|' || c == '>' || c == '<' || c == '&' || c == ';' || c == '(' || c == ')' || c == '{' || c == '}');
+	return (c == '|' || c == '>' || c == '<' || c == '&' || c == ';' || c == '(' || c == ')');
 }
 
 t_token	*handle_sigle_operator(const char **input)
@@ -33,10 +33,6 @@ t_token	*handle_sigle_operator(const char **input)
 		return ((*input)++, new_token(LPAREN, "("));
 	if ((*input)[0] == ')')
 		return ((*input)++, new_token(RPAREN, ")"));
-	if ((*input)[0] == '{')
-		return ((*input)++, new_token(LBRACE, "{"));
-	if ((*input)[0] == '}')
-		return ((*input)++, new_token(RBRACE, "}"));
 
 	return (NULL);
 }

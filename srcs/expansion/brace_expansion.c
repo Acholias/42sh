@@ -155,7 +155,7 @@ char	**expand_braces(const char *input)
 		{
 			brace_start = index;
 			prefix = ft_strndup(input, brace_start);
-			elements = extract_elements(prefix, brace_start, &brace_end);
+			elements = extract_elements(input, brace_start, &brace_end);
 			result = build_expansion(prefix, elements, input + brace_end + 1);
 			free(prefix);
 			free_string_array(elements);

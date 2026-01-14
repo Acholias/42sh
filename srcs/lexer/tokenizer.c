@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:40:03 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/14 15:32:08 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 15:42:53 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,27 @@ t_token	*handle_word(const char **input)
 {
 	char		*word;
 	t_token		*token;
+	char		**expanded;
+	int			i;
 
 	word = extract_quoted_word(input);
 	if (!word)
 		return (MALLOC_FAILED);
-	token = new_token(WORD, word);
+	expanded = expand_braces(word);
 	free(word);
+	if (!expanded || !expanded[0])
+		return (NULL);
+	token = new_token(WORD, expanded[0]);
+	if (expanded[1])
+	{
+		i = 1;
+		while (expanded[i])
+		{
+			token_add_back(&token, new_token(WORD, expanded[i]));
+			i++;
+		}
+	}
+	free_string_array(expanded);
 	return (token);
 }
 
@@ -87,35 +102,7 @@ void	token_append(t_token **head, t_token *to_add)
 
 t_token	*lexer_tokenizer(const char *input)
 {
-	char	**expanded;
-	t_token	*head;
-	t_token	*token;
-	int		index;
-
 	if (!input || !*input)
 		return (NULL);
-
-	expanded = expand_braces(input);
-	if (!expanded)
-		return (NULL);
-
-	head = NULL;
-	index = 0;
-	while (expanded[index])
-	{
-		token = tokenize_single_input(input);
-		if (!token)
-		{
-			token_free(head);
-			free_string_array(expanded);
-			return (NULL);
-		}
-		if (head == NULL)
-			head = token;
-		else
-			token_append(&head, token);
-		index++;
-	}
-	free_string_array(expanded);
-	return (head);
+	return (tokenize_single_input(input));
 }
