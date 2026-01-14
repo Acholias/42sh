@@ -25,7 +25,6 @@ typedef struct	s_env
 }	t_env;
 
 // env_utils.c
-char	*ft_strndup(const char *str, int len);
 t_env	*env_find(t_env *env, const char *name);
 char	*get_env(t_env *env, const char *name);
 int		env_set(t_env **env, const char *name, const char *value, int exported);

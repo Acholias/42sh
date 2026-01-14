@@ -12,24 +12,6 @@
 
 #include "../../includes/shell.h"
 
-char	*ft_strndup(const char *str, int len)
-{
-	char	*dup;
-	int		index;
-
-	index = 0;
-	dup = malloc(sizeof(char) * (len + 1));
-	if (!dup)
-		return (MALLOC_FAILED);
-	while (index < len)
-	{
-		dup[index] = str[index];
-		index++;
-	}
-	dup[index] = '\0';
-	return (dup);
-}
-
 t_env	*env_new_node(const char *name, const char *value, int exported)
 {
 	t_env	*node;

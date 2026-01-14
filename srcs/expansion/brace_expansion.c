@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 14:53:39 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/14 15:15:20 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 15:35:04 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,39 @@ static char	**build_expansion(const char *prefix, char **elements, const char *s
 		index++;
 	}
 	result[index] = NULL;
+	return (result);
+}
+
+char	**expand_braces(const char *input)
+{
+	int		index;
+	int		brace_start;
+	int		brace_end;
+	char	*prefix;
+	char	**elements;
+	char	**result;
+
+	if (!input)
+		return (NULL);
+	index = 0;
+	while (input[index])
+	{
+		if (input[index] == '{' && is_valid_brace_expansion(input, index))
+		{
+			brace_start = index;
+			prefix = ft_strndup(input, brace_start);
+			elements = extract_elements(prefix, brace_start, &brace_end);
+			result = build_expansion(prefix, elements, input + brace_end + 1);
+			free(prefix);
+			free_string_array(elements);
+			return (result);
+		}
+		index++;
+	}
+	result = malloc(sizeof(char *) * 2);
+	if (!result)
+		return (MALLOC_FAILED);
+	result[0] = ft_strdup(input);
+	result[1] = NULL;
 	return (result);
 }

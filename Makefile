@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/12 09:58:31 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/14 15:33:33 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ DEBUG_FLAGS	= -DDEBUG
 SRCDIR		= srcs
 OBJSDIR		= obj
 
-# Libft
 LIBFT_DIR	= Libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
@@ -60,12 +59,15 @@ PARSER_SRCS		= parser.c \
 ENV_SRCS		= env_init.c \
 				  env_utils.c
 
+EXPANSION_SRCS	= brace_expansion.c
+
 SRCS		= $(addprefix $(SRCDIR)/terminal/, $(TERMINAL_SRCS)) \
 			  $(addprefix $(SRCDIR)/line_editing/, $(LINE_EDIT_SRCS)) \
 			  $(addprefix $(SRCDIR)/history/, $(HISTORY_SRCS)) \
 			  $(addprefix $(SRCDIR)/lexer/, $(LEXER_SRCS)) \
 			  $(addprefix $(SRCDIR)/parser/, $(PARSER_SRCS)) \
-			  $(addprefix $(SRCDIR)/env/, $(ENV_SRCS))
+			  $(addprefix $(SRCDIR)/env/, $(ENV_SRCS)) \
+			  $(addprefix $(SRCDIR)/expansion/, $(EXPANSION_SRCS))
 
 OBJS		= $(OBJSDIR)/main.o $(SRCS:$(SRCDIR)/%.c=$(OBJSDIR)/%.o)
 
@@ -144,7 +146,11 @@ $(OBJSDIR)/env/%.o: $(SRCDIR)/env/%.c | $(OBJSDIR)/env
 	@printf "    $(YELLOW)→$(NC) Compiling parser/$*.c\n"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer $(OBJSDIR)/parser $(OBJSDIR)/env:
+$(OBJSDIR)/expansion/%.o: $(SRCDIR)/expansion/%.c | $(OBJSDIR)/expansion
+	@printf "    $(YELLOW)→$(NC) Compiling expansion/$*.c\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer $(OBJSDIR)/parser $(OBJSDIR)/env $(OBJSDIR)/expansion:
 	@mkdir -p $@
 
 clean:
