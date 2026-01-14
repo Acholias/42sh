@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 19:59:07 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 23:46:35 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 14:11:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	display_refresh_buffer(const t_line *line)
 	int	prompt_len;
 
 	display_clear_line();
-	write(STDOUT_FILENO, PROMPT, strlen(PROMPT));
+	write(STDOUT_FILENO, PROMPT, ft_strlen(PROMPT));
 	write(STDOUT_FILENO, line->buffer, line->len);
 	prompt_len = display_get_prompt_length();
 	display_move_cursor_to(prompt_len + line->pos);
@@ -117,7 +117,7 @@ void	display_newline(void)
 
 void	display_prompt(void)
 {
-	write(STDOUT_FILENO, PROMPT, strlen(PROMPT));
+	write(STDOUT_FILENO, PROMPT, ft_strlen(PROMPT));
 }
 
 void	display_bell(void)

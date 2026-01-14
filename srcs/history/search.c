@@ -6,11 +6,14 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:26:55 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/14 13:11:09 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 14:50:01 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+#include <unistd.h>
+
+extern volatile sig_atomic_t	g_interrupted;
 
 static void	display_search_prompt(t_search *search, const char *match)
 {
@@ -115,6 +118,13 @@ char	*history_search(t_history *hist)
 	display_search_prompt(&search, match);
 	while (search.active)
 	{
+		if (g_interrupted)
+		{
+			g_interrupted = 0;
+			write(STDOUT_FILENO, "^C", 2);
+			display_newline();
+			return (NULL);
+		}
 		key = get_key();
 		if (key.key == KEY_CTRL_R)
 			search_next_match(&search, hist);
@@ -124,13 +134,12 @@ char	*history_search(t_history *hist)
 		{
 			match = find_match(hist, search.search_term, hist->size - 1);
 			result = match ? ft_strdup(match) : ft_strdup("");
-			display_clear_line();
+			display_newline();
 			return (result);
 		}
-		else if (key.key == KEY_CTRL_G)
+		else if (key.key == KEY_CTRL_G || key.key == KEY_ESC || key.key == KEY_CTRL_C)
 		{
-			printf("KEY CATCH !\n");
-			display_clear_line();
+			display_newline();
 			return (NULL);
 		}
 		else if (key.key == KEY_UNKNOWN && ft_isprint(key.character))

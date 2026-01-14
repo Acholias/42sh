@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 08:28:33 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/12 12:52:01 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 14:03:06 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "lexer.h"
 # include "parser.h"
-# include <unistd.h>
 
 typedef struct	s_env
 {

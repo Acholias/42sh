@@ -6,16 +6,13 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:07:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/08 18:26:58 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 14:03:08 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <string.h>
 # include <stdbool.h>
 
 # define MALLOC_FAILED NULL

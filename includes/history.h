@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 20:36:36 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/14 13:07:58 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 14:10:47 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define HISTORY_FILE ".42sh_history"
 
 # define MALLOC_FAILED NULL
+
+# include <stdbool.h>
 
 typedef struct	s_history
 {

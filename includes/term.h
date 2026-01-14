@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:27:09 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 23:44:51 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 14:11:13 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@
 # include <unistd.h>
 # include <signal.h>
 # include <errno.h>
-# include <string.h>
-# include <stdlib.h>
-# include <stdbool.h>
 # include <stdio.h>
+# include <stdbool.h>
 
 extern volatile sig_atomic_t g_interrupted;
 

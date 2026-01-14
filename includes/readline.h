@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:21:15 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/07 12:09:59 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 14:10:23 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "term.h"
 # include "keys.h"
 # include "history.h"
+# include <stdbool.h>
 
 typedef struct s_line
 {
