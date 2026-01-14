@@ -12,10 +12,14 @@
 
 NAME		= 42sh
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g -Iincludes
+CFLAGS		= -Wall -Wextra -Werror -g -Iincludes -ILibft
 DEBUG_FLAGS	= -DDEBUG
 SRCDIR		= srcs
 OBJSDIR		= obj
+
+# Libft
+LIBFT_DIR	= Libft
+LIBFT		= $(LIBFT_DIR)/libft.a
 
 RED			= \033[0;31m
 GREEN		= \033[0;32m
@@ -68,7 +72,7 @@ OBJS		= $(OBJSDIR)/main.o $(SRCS:$(SRCDIR)/%.c=$(OBJSDIR)/%.o)
 TOTAL_FILES	= $(words $(OBJS))
 COMPILED	= 0
 
-all: banner $(NAME) success
+all: banner $(LIBFT) $(NAME) success
 
 banner:
 	@clear
@@ -91,10 +95,16 @@ banner:
 	@echo ""
 	@echo "$(MAGENTA)[i]$(NC) Compiling source files..."
 
+$(LIBFT):
+	@echo ""
+	@echo "$(MAGENTA)[i]$(NC) Compiling Libft..."
+	@$(MAKE) -C $(LIBFT_DIR)
+	@echo "$(GREEN)[✓]$(NC) Libft compiled"
+
 $(NAME): $(OBJS)
 	@echo ""
 	@echo "$(MAGENTA)[i]$(NC) Linking object files..."
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)[✓]$(NC) Binary created: $(BOLD)./42sh$(NC)"
 
 success:
@@ -140,12 +150,14 @@ $(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJS
 clean:
 	@echo "$(YELLOW)[i]$(NC) Cleaning object files..."
 	@rm -rf $(OBJSDIR)
+	@$(MAKE) -C $(LIBFT_DIR) clean
 	@echo "$(GREEN)[✓]$(NC) Clean complete"
 
 fclean: clean
 	@echo "$(YELLOW)[i]$(NC) Removing binary and history..."
 	@rm -rf $(NAME)
 	@rm -rf ~/.42sh_history
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@echo "$(GREEN)[✓]$(NC) Full clean complete"
 
 re: fclean all
