@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/keys.h"
+#include "../../includes/shell.h"
 
 static t_key	parse_alt_key(unsigned char ch)
 {

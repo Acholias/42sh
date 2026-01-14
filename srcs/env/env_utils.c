@@ -6,17 +6,17 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 08:30:51 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/13 18:44:57 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 12:51:06 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/env.h"
+#include "../../includes/shell.h"
 
 t_env	*env_find(t_env *env, const char *name)
 {
 	while (env)
 	{
-		if (strcmp(env->name, name) == 0)
+		if (ft_strcmp(env->name, name) == 0)
 			return (env);
 		env = env->next;
 	}
@@ -42,7 +42,7 @@ int	env_set(t_env **env, const char *name, const char *value, int exported)
 	node = env_find(*env, name);
 	if (node)
 	{
-		new_value = strdup(value ? value : "");
+		new_value = ft_strdup(value ? value : "");
 		if (!new_value)
 			return (-1);
 		free(node->value);

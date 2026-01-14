@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/readline.h"
-#include "../../includes/display.h"
+#include "../../includes/shell.h"
 #include <signal.h>
 
 volatile sig_atomic_t	g_interrupted = 0;
@@ -63,7 +62,7 @@ void	handle_sigcont(int signal)
 	if (g_current_term)
 		tcsetattr(STDIN_FILENO, TCSANOW, &g_current_term->raw);
 	
-	memset(&sa, 0, sizeof(sa));
+	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = handle_sigtstp;
 	sigaction(SIGTSTP, &sa, NULL);
 	
@@ -97,7 +96,7 @@ void	signals_init_interactive(void)
 {
 	struct sigaction	sa;
 
-	memset(&sa, 0, sizeof(sa));
+	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = handle_sigint;
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);

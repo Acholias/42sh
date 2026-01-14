@@ -6,11 +6,11 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 20:36:15 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/13 18:56:48 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 13:12:38 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/history.h"
+#include "../../includes/shell.h"
 
 t_history	*history_init(void)
 {
@@ -78,14 +78,14 @@ void	history_add(t_history *hist, const char *line)
 
 	if (!hist || !line || !*line)
 		return ;
-	if (hist->size > 0 && strcmp(hist->entries[hist->size - 1], line) == 0)
+	if (hist->size > 0 && ft_strcmp(hist->entries[hist->size - 1], line) == 0)
 		return ;
 	if (hist->size >= hist->capacity)
 	{
 		if (history_resize(hist) == -1)
 			return ;
 	}
-	dup = strdup(line);
+	dup = ft_strdup(line);
 	if (!dup)
 		return ;
 	hist->entries[hist->size] = dup;
@@ -146,7 +146,7 @@ void	history_save_temp(t_history *hist, const char *line)
 		return ;
 	if (hist->temp_line)
 		free(hist->temp_line);
-	hist->temp_line = strdup(line);
+	hist->temp_line = ft_strdup(line);
 }
 
 char	*history_goto_first(t_history *hist)

@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
-#include "../../includes/parser.h"
+#include "../../includes/shell.h"
 
 #ifdef DEBUG
 
@@ -90,18 +89,18 @@ void	token_print_one(t_token *token)
 		return ;
 	color = get_token_color(token->type);
 	type_name = get_token_type_name(token->type);
-	write(STDOUT_FILENO, color, strlen(color));
+	write(STDOUT_FILENO, color, ft_strlen(color));
 	write(STDOUT_FILENO, "[", 1);
-	write(STDOUT_FILENO, type_name, strlen(type_name));
+	write(STDOUT_FILENO, type_name, ft_strlen(type_name));
 	write(STDOUT_FILENO, "]", 1);
-	write(STDOUT_FILENO, COLOR_RESET, strlen(COLOR_RESET));
+	write(STDOUT_FILENO, COLOR_RESET, ft_strlen(COLOR_RESET));
 	write(STDOUT_FILENO, " ", 1);
 	if (token->value)
 	{
 		write(STDOUT_FILENO, "[", 1);
-		write(STDOUT_FILENO, COLOR_BOLD, strlen(COLOR_BOLD));
-		write(STDOUT_FILENO, token->value, strlen(token->value));
-		write(STDOUT_FILENO, COLOR_RESET, strlen(COLOR_RESET));
+		write(STDOUT_FILENO, COLOR_BOLD, ft_strlen(COLOR_BOLD));
+		write(STDOUT_FILENO, token->value, ft_strlen(token->value));
+		write(STDOUT_FILENO, COLOR_RESET, ft_strlen(COLOR_RESET));
 		write(STDOUT_FILENO, "]", 1);
 	}
 	else

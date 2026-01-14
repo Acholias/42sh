@@ -6,11 +6,11 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 08:31:33 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/13 18:44:55 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 13:03:35 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/env.h"
+#include "../../includes/shell.h"
 
 char	*ft_strndup(const char *str, int len)
 {
@@ -37,8 +37,8 @@ t_env	*env_new_node(const char *name, const char *value, int exported)
 	node = malloc(sizeof(t_env));
 	if (!node)
 		return (MALLOC_FAILED);
-	node->name = strdup(name);
-	node->value = strdup(value ? value : "");
+	node->name = ft_strdup(name);
+	node->value = ft_strdup(value ? value : "");
 	if (!node->name || !node->value)
 	{
 		free(node->name);
@@ -91,13 +91,13 @@ int	parse_env_line(const char *line, char **name, char **value)
 {
 	char	*equal;
 
-	equal = strchr(line, '=');
+	equal = ft_strchr(line, '=');
 	if (!equal)
 		return (-1);
 	*name = ft_strndup(line, equal - line);
 	if (!*name)
 		return (-1);
-	*value = strdup(equal + 1);
+	*value = ft_strdup(equal + 1);
 	if (!*value)
 	{
 		free(*value);

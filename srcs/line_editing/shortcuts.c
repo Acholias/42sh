@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/readline.h"
-#include "../../includes/keys.h"
-#include "../../includes/display.h"
+#include "../../includes/shell.h"
 
 bool	is_shortcuts_key(t_key_result key)
 {

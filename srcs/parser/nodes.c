@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
+#include "../../includes/shell.h"
 
 t_ast_node	*new_command_node(t_simple_cmd *cmd, t_redir *redirs)
 {

@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/term.h"
-#include "../../includes/keys.h"
-#include "../../includes/readline.h"
-#include "../../includes/display.h"
-#include "../../includes/history.h"
-#include "../../includes/lexer.h"
-#include "../../includes/parser.h"
+#include "../../includes/shell.h"
 
 static void	handle_history_navigation(t_history *hist, t_line *line, t_key_result key)
 {
@@ -29,8 +23,8 @@ static void	handle_history_navigation(t_history *hist, t_line *line, t_key_resul
 		entry = history_prev(hist);
 		if (entry)
 		{
-			strcpy(line->buffer, entry);
-			line->len = strlen(entry);
+			ft_strcpy(line->buffer, entry);
+			line->len = ft_strlen(entry);
 			line->pos = line->len;
 			display_refresh_buffer(line);
 		}
@@ -40,16 +34,16 @@ static void	handle_history_navigation(t_history *hist, t_line *line, t_key_resul
 		entry = history_next(hist);
 		if (entry)
 		{
-			strcpy(line->buffer, entry);
-			line->len = strlen(entry);
+			ft_strcpy(line->buffer, entry);
+			line->len = ft_strlen(entry);
 			line->pos = line->len;
 		}
 		else
 		{
 			if (hist->temp_line)
 			{
-				strcpy(line->buffer, hist->temp_line);
-				line->len = strlen(hist->temp_line);
+				ft_strcpy(line->buffer, hist->temp_line);
+				line->len = ft_strlen(hist->temp_line);
 				line->pos = line->len;
 			}
 			else
@@ -72,8 +66,8 @@ static void	handle_history_jump(t_history *hist, t_line *line, t_key_result key)
 		entry = history_goto_first(hist);
 		if (entry)
 		{
-			strcpy(line->buffer, entry);
-			line->len = strlen(entry);
+			ft_strcpy(line->buffer, entry);
+			line->len = ft_strlen(entry);
 			line->pos = line->len;
 			display_refresh_buffer(line);
 		}
@@ -83,8 +77,8 @@ static void	handle_history_jump(t_history *hist, t_line *line, t_key_result key)
 		entry = history_goto_last(hist);
 		if (entry)
 		{
-			strcpy(line->buffer, entry);
-			line->len = strlen(entry);
+			ft_strcpy(line->buffer, entry);
+			line->len = ft_strlen(entry);
 			line->pos = line->len;
 		}
 		else
@@ -123,8 +117,8 @@ static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_k
 		result = history_search(hist);
 		if (result)
 		{
-			strcpy(line->buffer, result);
-			line->len = strlen(result);
+			ft_strcpy(line->buffer, result);
+			line->len = ft_strlen(result);
 			line->pos = line->len;
 			free(result);
 		}

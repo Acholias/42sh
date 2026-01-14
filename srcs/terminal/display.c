@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/display.h"
-#include "../../includes/readline.h"
+#include "../../includes/shell.h"
 #include <sys/ioctl.h>
 
 void	display_clear_line(void)
@@ -31,7 +30,7 @@ void	display_cursor_left(int n)
 	if (n <= 0)
 		return ;
 	snprintf(seq, sizeof(seq), "\033[%dD", n);
-	write(STDOUT_FILENO, seq, strlen(seq));
+	write(STDOUT_FILENO, seq, ft_strlen(seq));
 }
 
 void	display_cursor_right(int n)
@@ -41,7 +40,7 @@ void	display_cursor_right(int n)
 	if (n <= 0)
 		return ;
 	snprintf(seq, sizeof(seq), "\033[%dC", n);
-	write(STDOUT_FILENO, seq, strlen(seq));
+	write(STDOUT_FILENO, seq, ft_strlen(seq));
 }
 
 void	display_move_cursor_to(int position)
@@ -50,7 +49,7 @@ void	display_move_cursor_to(int position)
 	if (position < 0)
 		return ;
 	snprintf(seq, sizeof(seq), "\033[%dG", position + 1);
-	write(STDOUT_FILENO, seq, strlen(seq));
+	write(STDOUT_FILENO, seq, ft_strlen(seq));
 }
 
 void	display_save_cursor(void)

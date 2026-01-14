@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static char	*ft_strcpy(char *dest, char *src)
+static char	*ft_strcpy_local(char *dest, char *src)
 {
 	int	i;
 
@@ -60,7 +60,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	tab = malloc(sizeof(char) * len_s1 + len_s2 + 1);
 	if (!tab)
 		return (NULL);
-	ft_strcpy(tab, (char *)s1);
+	ft_strcpy_local(tab, (char *)s1);
 	ft_strcat(tab, (char *)s2);
 	return (tab);
 }

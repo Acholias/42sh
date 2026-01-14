@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
+#include "../../includes/shell.h"
 
 t_redir	*new_redir(t_token_type type, int fd, char *file)
 {
@@ -21,7 +21,7 @@ t_redir	*new_redir(t_token_type type, int fd, char *file)
 		return (MALLOC_FAILED);
 	redir->type = type;
 	redir->fd = fd;
-	redir->file = strdup(file);
+	redir->file = ft_strdup(file);
 	redir->heredoc = NULL;
 	redir->next = NULL;
 	return (redir);

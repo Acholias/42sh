@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
+#include "../../includes/shell.h"
 
 t_ast_node	*parse_simple_command(t_token **token)
 {
@@ -30,7 +30,7 @@ t_ast_node	*parse_simple_command(t_token **token)
 	while (*token && (*token)->type == WORD)
 	{
 		current = get_token_and_advance(token);
-		cmd->argv[cmd->argc] = strdup(current->value);
+		cmd->argv[cmd->argc] = ft_strdup(current->value);
 		cmd->argc++;
 	}
 	cmd->argv[cmd->argc] = NULL;

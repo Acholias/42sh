@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/readline.h"
+#include "../../includes/shell.h"
 
 bool	is_word_separator(char c)
 {

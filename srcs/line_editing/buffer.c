@@ -6,11 +6,11 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 23:20:11 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/06 23:50:22 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 13:56:30 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/readline.h"
+#include "../../includes/shell.h"
 #include <ctype.h>
 
 static void	save_to_killring(t_term *term, const char *text, int len)
@@ -22,7 +22,7 @@ static void	save_to_killring(t_term *term, const char *text, int len)
 	term->killring = malloc(len + 1);
 	if (!term->killring)
 		return ;
-	memcpy(term->killring, text, len);
+	ft_memcpy(term->killring, text, len);
 	term->killring[len] = '\0';
 }
 
@@ -50,7 +50,7 @@ void	buffer_insert(t_line *line, char c)
 {
 	if (line->len + 1 >= line->cap)
 		return ;
-	memmove(&line->buffer[line->pos + 1], &line->buffer[line->pos], line->len - line->pos + 1);
+	ft_memmove(&line->buffer[line->pos + 1], &line->buffer[line->pos], line->len - line->pos + 1);
 	line->buffer[line->pos] = c;
 	line->pos++;
 	line->len++;
@@ -60,7 +60,7 @@ void	buffer_backspace(t_line *line)
 {
 	if (line->pos == 0)
 		return ;
-	memmove(&line->buffer[line->pos - 1], &line->buffer[line->pos], line->len - line->pos + 1);
+	ft_memmove(&line->buffer[line->pos - 1], &line->buffer[line->pos], line->len - line->pos + 1);
 	line->pos--;
 	line->len--;
 }
@@ -69,7 +69,7 @@ void	buffer_delete(t_line *line)
 {
 	if (line->pos >= line->len)
 		return ;
-	memmove(&line->buffer[line->pos], &line->buffer[line->pos + 1], line->len - line->pos);
+	ft_memmove(&line->buffer[line->pos], &line->buffer[line->pos + 1], line->len - line->pos);
 	line->len--;
 }
 
@@ -85,7 +85,7 @@ void	buffer_clear_before_cursor(t_term *term, t_line *line)
 {
 	if (line->pos > 0)
 		save_to_killring(term, line->buffer, line->pos);
-	memmove(line->buffer, &line->buffer[line->pos], line->len - line->pos + 1);
+	ft_memmove(line->buffer, &line->buffer[line->pos], line->len - line->pos + 1);
 	line->len -= line->pos;
 	line->pos = 0;
 }
@@ -102,7 +102,7 @@ void	buffer_delete_word(t_term *term, t_line *line)
 	while (start > 0 && !is_word_separator(line->buffer[start - 1]))
 		start--;
 	save_to_killring(term, &line->buffer[start], line->pos - start);
-	memmove(&line->buffer[start], &line->buffer[line->pos], line->len - line->pos + 1);
+	ft_memmove(&line->buffer[start], &line->buffer[line->pos], line->len - line->pos + 1);
 	line->len -= (line->pos - start);
 	line->pos = start;
 }
@@ -119,7 +119,7 @@ void	buffer_delete_word_forward(t_term *term, t_line *line)
 	while (end < line->len && !is_word_separator(line->buffer[end]))
 		end++;
 	save_to_killring(term, &line->buffer[line->pos], end - line->pos);
-	memmove(&line->buffer[line->pos], &line->buffer[end], line->len - end + 1);
+	ft_memmove(&line->buffer[line->pos], &line->buffer[end], line->len - end + 1);
 	line->len -= (end - line->pos);
 }
 
@@ -147,10 +147,10 @@ void	buffer_yank(t_term *term, t_line *line)
 
 	if(!term || !term->killring)
 		return ;
-	len = strlen(term->killring);
+	len = ft_strlen(term->killring);
 	if (line->len + len >= line->cap)
 		return ;
-	memmove(&line->buffer[line->pos + len], &line->buffer[line->pos], line->len - line->pos + 1);
+	ft_memmove(&line->buffer[line->pos + len], &line->buffer[line->pos], line->len - line->pos + 1);
 	index = 0;
 	while (index < len)
 	{
@@ -172,7 +172,7 @@ void	buffer_uppercase_word(t_line *line)
 		start++;
 	while (start < line->len && !is_word_separator(line->buffer[start]))
 	{
-		line->buffer[start] = toupper((unsigned char)line->buffer[start]);
+		line->buffer[start] = ft_toupper((unsigned char)line->buffer[start]);
 		start++;
 	}
 	line->pos = start;
@@ -189,7 +189,7 @@ void	buffer_lowercase_word(t_line *line)
 		start++;
 	while (start < line->len && !is_word_separator(line->buffer[start]))
 	{
-		line->buffer[start] = tolower((unsigned char)line->buffer[start]);
+		line->buffer[start] = ft_tolower((unsigned char)line->buffer[start]);
 		start++;
 	}
 	line->pos = start;
@@ -210,12 +210,12 @@ void	buffer_capitalize_word(t_line *line)
 	{
 		if (first == true)
 		{
-			line->buffer[start] = toupper((unsigned char)line->buffer[start]);
+			line->buffer[start] = ft_toupper((unsigned char)line->buffer[start]);
 			first = false;
 	
 		}
 		else
-			line->buffer[start] = tolower((unsigned char )line->buffer[start]);
+			line->buffer[start] = ft_tolower((unsigned char )line->buffer[start]);
 		start++;
 	}
 	line->pos = start;
@@ -267,10 +267,10 @@ static void	swap_word_in_buffer(t_line *line, int w1_start, int w1_end, int w2_s
 	temp = malloc(w2_len);
 	if (!temp)
 		return ;
-	memcpy(temp, &line->buffer[w2_start], w2_len);
-	memmove(&line->buffer[w1_start + w2_len + gap_len], &line->buffer[w1_start], w1_len);
-	memcpy(&line->buffer[w1_start], temp, w2_len);
-	memmove(&line->buffer[w1_start + w2_len], &line->buffer[w1_end], gap_len);
+	ft_memcpy(temp, &line->buffer[w2_start], w2_len);
+	ft_memmove(&line->buffer[w1_start + w2_len + gap_len], &line->buffer[w1_start], w1_len);
+	ft_memcpy(&line->buffer[w1_start], temp, w2_len);
+	ft_memmove(&line->buffer[w1_start + w2_len], &line->buffer[w1_end], gap_len);
 	free(temp);
 }
 

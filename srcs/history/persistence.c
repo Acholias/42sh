@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/history.h"
+#include "../../includes/shell.h"
 
 static char	*get_history_filepath(void)
 {
@@ -21,7 +21,7 @@ static char	*get_history_filepath(void)
 	home = getenv("HOME");
 	if (!home)
 		return (NULL);
-	len = strlen(home) + strlen(HISTORY_FILE) + 2;
+	len = ft_strlen(home) + ft_strlen(HISTORY_FILE) + 2;
 	filepath = malloc(len);
 	if (!filepath)
 		return (MALLOC_FAILED);

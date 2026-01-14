@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/shell.h"
 
 t_token	*new_token(t_token_type type, const char *value)
 {
@@ -21,7 +21,7 @@ t_token	*new_token(t_token_type type, const char *value)
 		return (MALLOC_FAILED);
 	token->type = type;
 	if (value)
-		token->value = strdup(value);
+		token->value = ft_strdup(value);
 	else
 		token->value = NULL;
 	token->next = NULL;

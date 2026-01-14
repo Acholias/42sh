@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
+#include "../../includes/shell.h"
 
 void	simple_cmd_free(t_simple_cmd *cmd)
 {

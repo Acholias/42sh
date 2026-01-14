@@ -6,21 +6,19 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 17:33:34 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/13 18:58:58 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 13:03:11 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/display.h"
-#include "includes/term.h"
-#include "includes/env.h"
+#include "includes/shell.h"
 
 // void	print_env(t_env *env)
 // {
 // 	while (env)
 // 	{
-// 		write(STDOUT_FILENO, env->name, strlen(env->name));
+// 		write(STDOUT_FILENO, env->name, ft_strlen(env->name));
 // 		write(STDOUT_FILENO, "=", 1);
-// 		write(STDOUT_FILENO, env->value, strlen(env->value));
+// 		write(STDOUT_FILENO, env->value, ft_strlen(env->value));
 // 		write(STDOUT_FILENO, "\n", 1);
 // 		env = env->next;
 // 	}

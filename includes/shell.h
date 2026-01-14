@@ -6,14 +6,14 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 12:39:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/14 12:45:09 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 13:09:37 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 
-# include "libft.h"
+# include "../Libft/libft.h"
 # include "display.h"
 # include "env.h"
 # include "history.h"

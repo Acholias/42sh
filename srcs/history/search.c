@@ -6,13 +6,11 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:26:55 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/13 19:55:28 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/14 13:11:09 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/history.h"
-#include "../../includes/display.h"
-#include "../../includes/keys.h"
+#include "../../includes/shell.h"
 
 static void	display_search_prompt(t_search *search, const char *match)
 {
@@ -22,7 +20,7 @@ static void	display_search_prompt(t_search *search, const char *match)
 		write(STDOUT_FILENO, search->search_term, search->term_len);
 	write(STDOUT_FILENO, "': ", 3);
 	if (match)
-		write(STDOUT_FILENO, match, strlen(match));
+		write(STDOUT_FILENO, match, ft_strlen(match));
 }
 
 static char	*find_match(t_history *hist, const char *term, int start_pos)
@@ -34,7 +32,7 @@ static char	*find_match(t_history *hist, const char *term, int start_pos)
 	index = start_pos;
 	while (index >= 0)
 	{
-		if (strstr(hist->entries[index], term))
+		if (ft_strnstr(hist->entries[index], term, 0))
 			return (hist->entries[index]);
 		index--;
 	}
@@ -110,7 +108,7 @@ char	*history_search(t_history *hist)
 	char			*match;
 	char			*result;
 
-	memset(&search, 0, sizeof(search));
+	ft_memset(&search, 0, sizeof(search));
 	search.active = true;
 	search.match_index = hist->size - 1;
 	match = NULL;
@@ -125,7 +123,7 @@ char	*history_search(t_history *hist)
 		else if (key.key == KEY_ENTER)
 		{
 			match = find_match(hist, search.search_term, hist->size - 1);
-			result = match ? strdup(match) : strdup("");
+			result = match ? ft_strdup(match) : ft_strdup("");
 			display_clear_line();
 			return (result);
 		}
@@ -135,7 +133,7 @@ char	*history_search(t_history *hist)
 			display_clear_line();
 			return (NULL);
 		}
-		else if (key.key == KEY_UNKNOWN && isprint(key.character))
+		else if (key.key == KEY_UNKNOWN && ft_isprint(key.character))
 			search_add_char(&search, hist, key.character);
 	}
 	search.active = false;

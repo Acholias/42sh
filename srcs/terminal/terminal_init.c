@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/term.h"
+#include "../../includes/shell.h"
 #include <bits/posix_opt.h>
 
 int	terminal_init(t_term *terminal)
 {
 	if (!terminal)
 		return (-1);
-	memset(terminal, 0, sizeof(t_term));
+	ft_memset(terminal, 0, sizeof(t_term));
 	if (tcgetattr(STDIN_FILENO, &terminal->orig) == -1)
 		return (-1);
 	terminal->raw = terminal->orig;

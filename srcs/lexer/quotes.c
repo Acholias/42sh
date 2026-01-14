@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/shell.h"
 
 static bool	is_word_delimiter(char c)
 {

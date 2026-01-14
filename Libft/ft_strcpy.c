@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/09 21:21:01 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/12 07:46:03 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/14 13:00:00 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/14 13:00:00 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
+#include "libft.h"
 
-t_ast_node	*parser_build_ast(t_token *token)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	t_ast_node	*ast;
+	size_t	i;
 
-	if (!token)
-		return (NULL);
-	ast = parse_complete_command(&token);
-	if (!ast)
+	i = 0;
+	while (src[i])
 	{
-		fprintf(stderr, "\rSyntex error\n");
-		return (NULL);
+		dest[i] = src[i];
+		i++;
 	}
-	if (token)
-	{
-		fprintf(stderr, "\rSyntax error: unexpected token\n");
-		free_ast(ast);
-		return (NULL);
-	}
-	return (ast);
+	dest[i] = '\0';
+	return (dest);
 }
