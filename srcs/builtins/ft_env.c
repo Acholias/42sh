@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 17:33:34 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:35:42 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/16 13:40:07 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/16 13:42:13 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
-int	main(int argc, char **argv, char **env)
+int	ft_env(t_env *env)
 {
-	t_term	terminal;
-	t_env	*new_env;
+	t_env *current;
 
-	(void)argc;
-	(void)argv;
-	new_env = init_env(env);
-	if (terminal_init(&terminal) == -1)
-		return (-1);
-	if (terminal_enable(&terminal) == -1)
+	if (!env)
+		return (1);
+	current = env;
+	while (current)
 	{
-		terminal_disable(&terminal);
-		return (-1);
+		if (current->exported && current->value)
+			printf("%s=%s\n", current->name, current->value);
+		current = current->next;
 	}
-	readline_loop(&terminal);
-	terminal_disable(&terminal);
-	display_newline();
-	close(6); // WSL PROTECTION
-	free_env(&new_env);
 	return (0);
 }

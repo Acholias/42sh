@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 17:33:34 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:35:42 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/16 13:31:38 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/16 13:39:47 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
-int	main(int argc, char **argv, char **env)
+int	ft_exit(char **argv, int last_exit_code)
 {
-	t_term	terminal;
-	t_env	*new_env;
+	int	exit_code;
 
-	(void)argc;
-	(void)argv;
-	new_env = init_env(env);
-	if (terminal_init(&terminal) == -1)
-		return (-1);
-	if (terminal_enable(&terminal) == -1)
+	printf("exit\n");
+	exit_code = 0;
+	if (argv[1])
 	{
-		terminal_disable(&terminal);
-		return (-1);
+		exit_code = ft_atod(argv[1]);
+		if (exit_code < 0 || exit_code > 255)
+			exit_code = exit_code % 256;
 	}
-	readline_loop(&terminal);
-	terminal_disable(&terminal);
-	display_newline();
-	close(6); // WSL PROTECTION
-	free_env(&new_env);
+	else
+		exit_code = last_exit_code;
+	exit(exit_code);
 	return (0);
 }
