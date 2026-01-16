@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:17:19 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 17:27:03 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 18:07:55 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	execute_pipe(t_ast_node *node, t_exec_ctx *ctx)
 	int		status;
 	int		ret;
 
+	ret = 0;
 	if (!node || !node->left || !node->right)
 		return (1);
 	if (pipe(pipefd) == -1)

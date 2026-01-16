@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:15:19 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 17:52:03 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 18:21:56 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	**env_to_array(t_env *env)
 		temp = malloc(ft_strlen(current->name) + ft_strlen(current->value) + 3);
 		if (!temp)
 		{
+			while (index > 0)
+				free(array[--index]);
 			free(array);
 			return (MALLOC_FAILED);
 		}
@@ -100,6 +102,7 @@ int	execute_external(t_simple_cmd *cmd, t_exec_ctx *ctx)
 {
 	pid_t	pid;
 	int		status;
+	int		index;
 	char	*cmd_path;
 	char	**envp;
 
@@ -110,11 +113,24 @@ int	execute_external(t_simple_cmd *cmd, t_exec_ctx *ctx)
 		return (127);
 	}
 	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		free(cmd_path);
+		return (1);
+	}
 	if (pid == 0)
 	{
 		envp = env_to_array(*ctx->env);
+		if (!envp)
+			exit(1);
 		execve(cmd_path, cmd->argv, envp);
-		perror("\rexecve");
+		perror("execve");
+		free(cmd_path);
+		index = 0;
+		while (envp[index])
+			free(envp[index++]);
+		free(envp);
 		exit(127);
 	}
 	free(cmd_path);

@@ -6,11 +6,12 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:19:02 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/13 19:53:00 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 18:42:51 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+#include <unistd.h>
 
 static void	handle_history_navigation(t_history *hist, t_line *line, t_key_result key)
 {

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 12:58:34 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 17:27:37 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 18:32:32 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			executor_run(t_ast_node *ast, t_exec_ctx *ctx);
 int			execute_command(t_ast_node *ast, t_exec_ctx *ctx);
 
 // exec_redirextions.c
-int			setup_redirections(t_redir *redirs);
+int			setup_redirections(t_redir *redirs, int *stdin_backup, int *stdout_backup);
 void		restore_redirections(int stdin_backup, int stdout_backup);
 
 // exec_pipe.c
