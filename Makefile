@@ -56,6 +56,15 @@ PARSER_SRCS		= parser.c \
 				  parser_utils.c \
 				  free_parser.c
 
+BUILTINS_SRCS	= builtins_utils.c \
+				  ft_echo.c \
+				  ft_pwd.c \
+				  ft_env.c \
+				  ft_exit.c \
+				  ft_cd.c \
+				  ft_export.c \
+				  ft_unset.c
+
 ENV_SRCS		= env_init.c \
 				  env_utils.c
 
@@ -66,6 +75,7 @@ SRCS		= $(addprefix $(SRCDIR)/terminal/, $(TERMINAL_SRCS)) \
 			  $(addprefix $(SRCDIR)/history/, $(HISTORY_SRCS)) \
 			  $(addprefix $(SRCDIR)/lexer/, $(LEXER_SRCS)) \
 			  $(addprefix $(SRCDIR)/parser/, $(PARSER_SRCS)) \
+			  $(addprefix $(SRCDIR)/builtins/, $(BUILTINS_SRCS)) \
 			  $(addprefix $(SRCDIR)/env/, $(ENV_SRCS)) \
 			  $(addprefix $(SRCDIR)/expansion/, $(EXPANSION_SRCS))
 
@@ -150,7 +160,11 @@ $(OBJSDIR)/expansion/%.o: $(SRCDIR)/expansion/%.c | $(OBJSDIR)/expansion
 	@printf "    $(YELLOW)→$(NC) Compiling expansion/$*.c\n"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer $(OBJSDIR)/parser $(OBJSDIR)/env $(OBJSDIR)/expansion:
+$(OBJSDIR)/builtins/%.o: $(SRCDIR)/builtins/%.c | $(OBJSDIR)/builtins
+	@printf "    $(YELLOW)→$(NC) Compiling builtins/$*.c\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer $(OBJSDIR)/parser $(OBJSDIR)/builtins $(OBJSDIR)/env $(OBJSDIR)/expansion:
 	@mkdir -p $@
 
 clean:

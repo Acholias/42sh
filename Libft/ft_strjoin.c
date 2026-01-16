@@ -6,46 +6,11 @@
 /*   By: lumugot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:45:43 by lumugot           #+#    #+#             */
-/*   Updated: 2024/10/16 09:56:15 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 15:13:01 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static char	*ft_strcpy_local(char *dest, char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-static char	*ft_strcat(char *dest, char *src)
-{
-	int	a;
-	int	b;
-
-	a = 0;
-	b = 0;
-	while (dest[a] != '\0')
-	{
-		a++;
-	}
-	while (src[b] != '\0')
-	{
-		dest[a] = src[b];
-		b++;
-		a++;
-	}
-	dest[a] = '\0';
-	return (dest);
-}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -60,7 +25,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	tab = malloc(sizeof(char) * len_s1 + len_s2 + 1);
 	if (!tab)
 		return (NULL);
-	ft_strcpy_local(tab, (char *)s1);
+	ft_strcpy(tab, (char *)s1);
 	ft_strcat(tab, (char *)s2);
 	return (tab);
 }
