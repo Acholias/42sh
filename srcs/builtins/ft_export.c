@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:38:17 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 15:12:30 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 15:16:22 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void	print_export_vars(t_env *env)
 static int	parse_assignment(char *arg, char **name, char **value, bool *append)
 {
 	char	*pos;
-	int		index;
 
 	*append = false;
 	*value = NULL;

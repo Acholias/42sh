@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 13:08:13 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:16:28 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 15:14:34 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	is_builtin(const char *cmd)
 	return (false);
 }
 
-int	execute_builtins(char **argv, t_env *env)
+int	execute_builtins(char **argv, t_env **env)
 {
 	if (!argv || !argv[0])
 		return (-1);
@@ -42,9 +42,9 @@ int	execute_builtins(char **argv, t_env *env)
 	if (ft_strcmp(argv[0], "pwd") == 0)
 		return (ft_pwd());
 	if (ft_strcmp(argv[0], "exit") == 0)
-		return (ft_exit(argv, env));
+		return (ft_exit(argv, 0));
 	if (ft_strcmp(argv[0], "env") == 0)
-		return (ft_env(env));
+		return (ft_env(*env));
 	if (ft_strcmp(argv[0], "cd") == 0)
 		return (ft_cd(argv, env));
 	if (ft_strcmp(argv[0], "export") == 0)
