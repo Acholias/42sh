@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 12:39:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:00:17 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/16 13:17:20 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/16 13:28:24 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "../../includes/shell.h"
 
-# include "../Libft/libft.h"
-# include "display.h"
-# include "env.h"
-# include "history.h"
-# include "keys.h"
-# include "lexer.h"
-# include "parser.h"
-# include "readline.h"
-# include "term.h"
-# include "expansion.h"
-# include "executor.h"
-# include "builtins.h"
+int	ft_echo(char **argv)
+{
+	int		index;
+	bool	newline;
 
-#endif
+	newline = true;
+	index = 1;
+	if (argv[1] && ft_strcmp(argv[1], "-n") == 0)
+	{
+		newline = false;
+		index = 2;
+	}
+	while (argv[index])
+	{
+		printf("%s", argv[index]);
+		if (argv[index + 1])
+			printf(" ");
+		index++;
+	}
+	if (newline)
+		printf("\n");
+	return (0);
+}

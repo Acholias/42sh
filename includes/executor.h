@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 12:39:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:00:17 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/16 12:58:34 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/16 12:59:43 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
 
-# include "../Libft/libft.h"
-# include "display.h"
-# include "env.h"
-# include "history.h"
-# include "keys.h"
-# include "lexer.h"
-# include "parser.h"
-# include "readline.h"
-# include "term.h"
-# include "expansion.h"
-# include "executor.h"
-# include "builtins.h"
+typedef struct s_exec_context
+{
+	char	**env;
+	int		last_exit_code;
+}	t_exec_context;
 
 #endif

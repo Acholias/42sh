@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 12:39:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:00:17 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/16 13:28:39 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/16 13:30:20 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "../../includes/shell.h"
 
-# include "../Libft/libft.h"
-# include "display.h"
-# include "env.h"
-# include "history.h"
-# include "keys.h"
-# include "lexer.h"
-# include "parser.h"
-# include "readline.h"
-# include "term.h"
-# include "expansion.h"
-# include "executor.h"
-# include "builtins.h"
+int	ft_pwd(void)
+{
+	char	cwd[4096];
 
-#endif
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
+		perror("pwd");
+		return (1);
+	}
+	printf("%s\n", cwd);
+	return (0);
+}

@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 12:39:10 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:00:17 by lumugot          ###   ########.fr       */
+/*   Created: 2026/01/16 13:00:23 by lumugot           #+#    #+#             */
+/*   Updated: 2026/01/16 13:07:59 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-# include "../Libft/libft.h"
-# include "display.h"
 # include "env.h"
-# include "history.h"
-# include "keys.h"
-# include "lexer.h"
-# include "parser.h"
-# include "readline.h"
-# include "term.h"
-# include "expansion.h"
-# include "executor.h"
-# include "builtins.h"
+# include <stdbool.h>
+
+bool	is_builtin(const char *cmd);
+int		ft_echo(char **argv);
+int		ft_pwd(void);
+int		ft_exit(char **argv, t_env *env);
+int		ft_env(	t_env *env);
+int		ft_cd(char **argv, t_env *env);
+int		ft_export(char **argv, t_env *env);
+int		ft_unset(char **argv, t_env *env);
+int		execute_builtins(char **argv, t_env *env);
 
 #endif
