@@ -28,9 +28,16 @@ int	execute_command(t_ast_node *ast, t_exec_ctx *ctx)
 		return (1);
 	}
 	if (is_builtin(ast->cmd->argv[0]))
+	{
 		ret = execute_builtins(ast->cmd->argv, ctx->env);
+		fflush(stdout);
+	}
 	else
+	{
+		if (!ast->redirs)
+			write(STDOUT_FILENO, "\r", 1);
 		ret = execute_external(ast->cmd, ctx);
+	}
 	restore_redirections(stdin_backup, stdout_backup);
 	return (ret);
 }

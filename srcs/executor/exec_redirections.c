@@ -23,9 +23,9 @@ int	setup_redirections(t_redir *redirs)
 		if (current->type== REDIR_IN)
 			fd = open(current->file, O_RDONLY);
 		else if (current->type == REDIR_OUT)
-			fd = open(current->file, O_WRONLY | O_CREAT | O_TRUNC | 0644);
+			fd = open(current->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (current->type == REDIR_APPEND)
-			fd = open(current->file, O_WRONLY | O_CREAT | O_APPEND | 0644);
+			fd = open(current->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
 		{
 			current = current->next;

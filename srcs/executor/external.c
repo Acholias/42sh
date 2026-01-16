@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:15:19 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 17:34:47 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 17:52:03 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**env_to_array(t_env *env)
 	current = env;
 	while (current)
 	{
-		temp = malloc(ft_strlen(current->name) + ft_strlen(current->value) + 2);
+		temp = malloc(ft_strlen(current->name) + ft_strlen(current->value) + 3);
 		if (!temp)
 		{
 			free(array);
@@ -88,7 +88,7 @@ char	*find_command_path(const char *cmd, t_env *env)
 		dir = extract_path_dir(path_env, &index);
 		if (!dir)
 			break ;
-		snprintf(full_path, sizeof(full_path), "\r%s=%s", dir, cmd);
+		snprintf(full_path, sizeof(full_path), "%s/%s", dir, cmd);
 		free(dir);
 		if (access(full_path, X_OK) == 0)
 			return (ft_strdup(full_path));
@@ -115,7 +115,7 @@ int	execute_external(t_simple_cmd *cmd, t_exec_ctx *ctx)
 		envp = env_to_array(*ctx->env);
 		execve(cmd_path, cmd->argv, envp);
 		perror("\rexecve");
-		return (127);
+		exit(127);
 	}
 	free(cmd_path);
 	waitpid(pid, &status, 0);

@@ -160,6 +160,7 @@ static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist,
 			}
 			token_free(token);
 		}
+		fflush(stdout);
 		history_reset_position(hist);
 		display_prompt();
 		buffer_reset(line);
