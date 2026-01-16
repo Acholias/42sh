@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:38:17 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 15:16:22 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 17:33:41 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	print_export_vars(t_env *env)
 		{
 			printf("declare -x %s", current->name);
 			if (current->value)
-				printf("=\"%s\"", current->value);
-			printf("\n");
+				printf("\r=\"%s\"", current->value);
+			printf("\r\n");
 		}
 		current = current->next;
 	}
@@ -116,7 +116,7 @@ int	ft_export(char **argv, t_env **env)
 		parse_assignment(argv[index], &name, &value, &append);
 		if (!is_valid_identifier(name))
 		{
-			fprintf(stderr, "export: `%s: not a valid identifier\n", argv[index]);
+			fprintf(stderr, "\rexport: `%s: not a valid identifier\n", argv[index]);
 			ret = 1;
 			index++;
 			continue;

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 13:40:07 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:42:13 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 17:33:08 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_env(t_env *env)
 	while (current)
 	{
 		if (current->exported && current->value)
-			printf("%s=%s\n", current->name, current->value);
+			printf("\r%s=%s\n", current->name, current->value);
 		current = current->next;
 	}
 	return (0);

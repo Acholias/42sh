@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 13:17:20 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:28:24 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 17:32:49 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_echo(char **argv)
 	}
 	while (argv[index])
 	{
-		printf("%s", argv[index]);
+		printf("\r%s", argv[index]);
 		if (argv[index + 1])
 			printf(" ");
 		index++;

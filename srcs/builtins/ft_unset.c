@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:28:41 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 14:38:02 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 17:34:01 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_unset(char **argv, t_env **env)
 	{
 		if (!is_valid_identifier(argv[index]))
 		{
-			fprintf(stderr, "unset: `%s': not a valid identifier\n", argv[index]);
+			fprintf(stderr, "\runset: `%s': not a valid identifier\n", argv[index]);
 			ret = 1;
 		}
 		else

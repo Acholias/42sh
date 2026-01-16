@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 13:31:38 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 13:39:47 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 17:33:18 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_exit(char **argv, int last_exit_code)
 {
 	int	exit_code;
 
-	printf("exit\n");
+	printf("\rexit\n");
 	exit_code = 0;
 	if (argv[1])
 	{
