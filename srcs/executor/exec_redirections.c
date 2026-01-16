@@ -6,12 +6,11 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:03:39 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 16:14:26 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 17:17:34 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-#include <unistd.h>
 
 int	setup_redirections(t_redir *redirs)
 {

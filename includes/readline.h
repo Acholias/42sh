@@ -16,6 +16,7 @@
 # include "term.h"
 # include "keys.h"
 # include "history.h"
+# include "executor.h"
 # include <stdbool.h>
 
 typedef struct s_line
@@ -27,6 +28,7 @@ typedef struct s_line
 }	t_line;
 
 // readline.c
+int		readline_loop(t_term *terminal, t_exec_ctx *exec_ctx);
 void	cleanup_readline_context(t_line *line, t_history *hist);
 
 // buffer.c

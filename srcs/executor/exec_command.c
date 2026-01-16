@@ -18,7 +18,7 @@ int	execute_command(t_ast_node *ast, t_exec_ctx *ctx)
 	int	stdin_backup;
 	int	stdout_backup;
 
-	if (!ast || !ast->cmd || ast->cmd->argv[0])
+	if (!ast || !ast->cmd || !ast->cmd->argv[0])
 		return (1);
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
@@ -28,6 +28,8 @@ int	execute_command(t_ast_node *ast, t_exec_ctx *ctx)
 		return (1);
 	}
 	if (is_builtin(ast->cmd->argv[0]))
+		ret = execute_builtins(ast->cmd->argv, ctx->env);
+	else
 		ret = execute_external(ast->cmd, ctx);
 	restore_redirections(stdin_backup, stdout_backup);
 	return (ret);

@@ -104,7 +104,8 @@ static void	catch_ctrl_backslash(t_term *term, t_history *hist, t_line *line)
 	raise(SIGQUIT);
 }
 
-static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_key_result key)
+static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist,
+			t_key_result key, t_exec_ctx *exec_ctx)
 {
 	char	*result;
 
@@ -153,7 +154,10 @@ static bool	handle_special_keys(t_term *term, t_line *line, t_history *hist, t_k
 				ast_print_debug(ast);
 			#endif
 			if (ast)
+			{
+				executor_run(ast, exec_ctx);
 				free_ast(ast);
+			}
 			token_free(token);
 		}
 		history_reset_position(hist);
@@ -201,13 +205,13 @@ void	cleanup_readline_context(t_line *line, t_history *hist)
 	history_free(hist);
 }
 
-int	readline_loop(t_term *terminal)
+int	readline_loop(t_term *terminal, t_exec_ctx *exec_ctx)
 {
 	t_key_result	key;
 	t_line			line;
 	t_history		*hist;
 
-	if (!terminal)
+	if (!terminal || !exec_ctx)
 		return (-1);
 	if (init_readline_context(terminal, &line, &hist) == -1)
 		return (-1);
@@ -220,7 +224,7 @@ int	readline_loop(t_term *terminal)
 		}
 		signal_handle_winch(&line);
 		key = get_key();
-		if (!handle_special_keys(terminal, &line, hist, key))
+		if (!handle_special_keys(terminal, &line, hist, key, exec_ctx))
 			break ;
 		display_refresh_buffer(&line);
 	}

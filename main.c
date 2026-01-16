@@ -14,8 +14,9 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	t_term	terminal;
-	t_env	*new_env;
+	t_term		terminal;
+	t_env		*new_env;
+	t_exec_ctx	*exec_ctx;
 
 	(void)argc;
 	(void)argv;
@@ -27,7 +28,15 @@ int	main(int argc, char **argv, char **env)
 		terminal_disable(&terminal);
 		return (-1);
 	}
-	readline_loop(&terminal);
+	exec_ctx = executor_init(&new_env);
+	if (!exec_ctx)
+	{
+		terminal_disable(&terminal);
+		free_env(&new_env);
+		return (-1);
+	}
+	readline_loop(&terminal, exec_ctx);
+	free_executor(exec_ctx);
 	terminal_disable(&terminal);
 	display_newline();
 	close(6); // WSL PROTECTION

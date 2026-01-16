@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/05 17:45:47 by lumugot           #+#    #+#              #
-#    Updated: 2026/01/14 15:33:33 by lumugot          ###   ########.fr        #
+#    Updated: 2026/01/16 17:25:08 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,13 @@ BUILTINS_SRCS	= builtins_utils.c \
 				  ft_export.c \
 				  ft_unset.c
 
+EXECUTOR_SRCS	= executor.c \
+				  exec_command.c \
+				  exec_operators.c \
+				  exec_redirections.c \
+				  exec_pipe.c \
+				  external.c
+
 ENV_SRCS		= env_init.c \
 				  env_utils.c
 
@@ -76,6 +83,7 @@ SRCS		= $(addprefix $(SRCDIR)/terminal/, $(TERMINAL_SRCS)) \
 			  $(addprefix $(SRCDIR)/lexer/, $(LEXER_SRCS)) \
 			  $(addprefix $(SRCDIR)/parser/, $(PARSER_SRCS)) \
 			  $(addprefix $(SRCDIR)/builtins/, $(BUILTINS_SRCS)) \
+			  $(addprefix $(SRCDIR)/executor/, $(EXECUTOR_SRCS)) \
 			  $(addprefix $(SRCDIR)/env/, $(ENV_SRCS)) \
 			  $(addprefix $(SRCDIR)/expansion/, $(EXPANSION_SRCS))
 
@@ -164,7 +172,11 @@ $(OBJSDIR)/builtins/%.o: $(SRCDIR)/builtins/%.c | $(OBJSDIR)/builtins
 	@printf "    $(YELLOW)→$(NC) Compiling builtins/$*.c\n"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer $(OBJSDIR)/parser $(OBJSDIR)/builtins $(OBJSDIR)/env $(OBJSDIR)/expansion:
+$(OBJSDIR)/executor/%.o: $(SRCDIR)/executor/%.c | $(OBJSDIR)/executor
+	@printf "    $(YELLOW)→$(NC) Compiling executor/$*.c\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSDIR) $(OBJSDIR)/terminal $(OBJSDIR)/line_editing $(OBJSDIR)/history $(OBJSDIR)/lexer $(OBJSDIR)/parser $(OBJSDIR)/builtins $(OBJSDIR)/executor $(OBJSDIR)/env $(OBJSDIR)/expansion:
 	@mkdir -p $@
 
 clean:

@@ -6,12 +6,11 @@
 /*   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:24:03 by lumugot           #+#    #+#             */
-/*   Updated: 2026/01/16 15:56:27 by lumugot          ###   ########.fr       */
+/*   Updated: 2026/01/16 17:27:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-#include <unistd.h>
 
 t_exec_ctx	*executor_init(t_env **env)
 {
@@ -27,7 +26,7 @@ t_exec_ctx	*executor_init(t_env **env)
 	return (ctx);
 }
 
-void	executor_free(t_exec_ctx *ctx)
+void	free_executor(t_exec_ctx *ctx)
 {
 	if (!ctx)
 		return ;
