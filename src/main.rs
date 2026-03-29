@@ -1,18 +1,15 @@
 mod readline;
 use readline::terminal::RawMode;
-use readline::input::{read_action, Action};
-use readline::display::Display;
+use readline::editor::Editor;
 
 fn main()
 {
     let _raw = RawMode::enable();
-    let _display = Display::new("42sh> ");
+    let mut editor = Editor::new("42sh> ");
 
-    let buffer: Vec<char> = vec!['h', 'e', 'l', 'l', 'o'];
-    let cursor = 5;
-
-    _display.render(&buffer, cursor);
-
-    read_action();
-    _display.newline();
+    loop
+    {
+        let line = editor.read_line();
+        println!("Command receive : {}", line);
+    }
 }
