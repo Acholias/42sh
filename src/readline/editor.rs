@@ -88,6 +88,22 @@ impl    Editor {
         line
     }
 
+    fn catch_ctrl_d(&mut self)
+    {
+        if self.buffer.is_empty()
+        {
+            self.display.newline();
+            std::process::exit(0);
+        }
+        else
+        {
+            if self.cursor < self.buffer.len()
+            {
+                self.buffer.remove(self.cursor);
+            }
+        }
+    }
+
     pub fn read_line(&mut self) -> String
     {
         self.display.render(&self.buffer, self.cursor);
@@ -108,6 +124,7 @@ impl    Editor {
                     self.display.newline();
                     return self.validate();
                 }
+                Action::CTRLD       => self.catch_ctrl_d(),
                 Action::MoveUp      => {}
                 Action::MoveDown    => {}
                 Action::Unknown     => {}
