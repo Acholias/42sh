@@ -5,8 +5,7 @@ use crate::readline::history::History;
 pub struct Editor {
     buffer:     Vec<char>,
     cursor:     usize,
-    history:    Vec<String>,
-    hist_idx:   usize,
+    history:    History,
     display:    Display,
 }
 
@@ -16,8 +15,7 @@ impl    Editor {
         Editor {
             buffer:     Vec::new(),
             cursor:     0,
-            history:    Vec::new(),
-            hist_idx:   0,
+            history:    History::new(),
             display:    Display::new(prompt),
         }
     }
@@ -77,15 +75,9 @@ impl    Editor {
     fn validate(&mut self) -> String
     {
         let line: String = self.buffer.iter().collect();
-
-        if !line.is_empty()
-        {
-            self.history.push(line.clone());
-        }
+        self.history.push(line.clone());
         self.buffer.clear();
         self.cursor = 0;
-        self.hist_idx = self.history.len();
-
         line
     }
 
@@ -102,6 +94,24 @@ impl    Editor {
             {
                 self.buffer.remove(self.cursor);
             }
+        }
+    }
+
+    fn history_prev(&mut self)
+    {
+        if let Some(entry) = self.history.prev(&self.buffer)
+        {
+            self.buffer = entry.chars().collect();
+            self.cursor = self.buffer.len();
+        }
+    }
+
+    fn history_next(&mut self)
+    {
+        if let Some(entry) = self.history.next()
+        {
+            self.buffer = entry.chars().collect();
+            self.cursor = self.buffer.len();
         }
     }
 
@@ -126,8 +136,8 @@ impl    Editor {
                     return self.validate();
                 }
                 Action::CTRLD       => self.catch_ctrl_d(),
-                Action::MoveUp      => {}
-                Action::MoveDown    => {}
+                Action::MoveUp      => self.history_prev(),
+                Action::MoveDown    => self.history_next(),
                 Action::Unknown     => {}
             }
             self.display.render(&self.buffer, self.cursor);

@@ -27,7 +27,7 @@ impl    History
     fn path() -> PathBuf
     {
         let home = std::env::var("HOME").unwrap_or_else(|_| String::from("/tmp"));
-        PathBuf::from(home).join(".42sh_history");
+        PathBuf::from(home).join(".42sh_history")
     }
 
     fn load(&mut self)
@@ -54,7 +54,7 @@ impl    History
     {
         if entry.is_empty() { return; }
 
-        let path = self::path();
+        let path = Self::path();
 
         if let Ok(mut file) = OpenOptions::new().append(true).create(true).open(&path)
         {
@@ -103,10 +103,5 @@ impl    History
         {
             Some(&self.entries[self.index])
         }
-    }
-
-    pub fn len(&self) -> usize
-    {
-        self.entries.len();
     }
 }
