@@ -10,6 +10,9 @@ clean:
 fclean : clean
 	@rm -rf $(NAME)
 
+purge: fclean
+	@rm -rf ~/.42sh_history
+
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean purge re
