@@ -138,7 +138,7 @@ impl    Editor {
                 Action::CTRLD       => self.catch_ctrl_d(),
                 Action::MoveUp      => self.history_prev(),
                 Action::MoveDown    => self.history_next(),
-                Action::Unknown     => {}
+                Action::Unknown     => todo!()
             }
             self.display.render(&self.buffer, self.cursor);
         }

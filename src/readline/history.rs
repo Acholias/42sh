@@ -83,10 +83,7 @@ impl    History
             self.index -= 1;
             Some(&self.entries[self.index])
         }
-        else
-        {
-            None
-        }
+        else { None }
     }
 
     pub fn next(&mut self) -> Option<&str>

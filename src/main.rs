@@ -9,7 +9,6 @@ fn main()
 
     loop
     {
-        let line = editor.read_line();
-        println!("Command receive : {}", line);
+        let _line = editor.read_line();
     }
 }
