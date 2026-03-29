@@ -1,5 +1,6 @@
 use crate::readline::input::{read_action, Action};
 use crate::readline::display::Display;
+use crate::readline::history::History;
 
 pub struct Editor {
     buffer:     Vec<char>,
