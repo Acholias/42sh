@@ -1,20 +1,29 @@
 mod readline;
 use readline::terminal::RawMode;
-use std::io::Read;
+use readline::input::read_action;
+use readline::input::Action;
 
-fn main()
-{
+fn main() {
     let _raw = RawMode::enable();
 
-    println!("RawMod is enable. Press ESC for escape !\r");
-
-    let mut buffer = [0u8; 1];
+    println!("Appuie sur des touches (Ctrl+C pour quitter)\r");
 
     loop
     {
-        std::io::stdin().read_exact(&mut buffer).unwrap();
-        print!("byte : {}\r\n", buffer[0]);
-        
-        if buffer[0] == 27 { break ;}
+        match read_action()
+        {
+            Action::MoveLeft    => print!("← \r\n"),
+            Action::MoveRight   => print!("→ \r\n"),
+            Action::MoveUp      => print!("↑ \r\n"),
+            Action::MoveDown    => print!("↓ \r\n"),
+            Action::Home        => print!("Home (Ctrl+A)\r\n"),
+            Action::End         => print!("End (Ctrl+E)\r\n"),
+            Action::Clear       => print!("Clear (Ctrl+U)\r\n"),
+            Action::ClearAfter  => print!("ClearAfter (Ctrl+K)\r\n"),
+            Action::Backspace   => print!("Backspace\r\n"),
+            Action::Enter       => print!("Enter\r\n"),
+            Action::Char(c)     => print!("Char: {}\r\n", c),
+            Action::Unknown     => {}
+        }
     }
 }
