@@ -63,9 +63,20 @@ impl    Display {
         io::stdout().flush().unwrap();
     }
 
-    pub fn newline(&self)
+    pub fn newline(&self, buffer: &[char])
     {
-        println!();
+        let width = Self::terminal_width();
+        let total_len = self.prompt.len() + buffer.len();
+        let lines = Self::count_lines(total_len, width);
+        let current_line = total_len / width;
+    
+        let mut output = String::new();
+        if current_line > 0
+        {
+            output.push_str(&format!("\x1b[{}B", lines - 1 - (total_len / width - current_line)));
+        }
+        output.push_str("\r\n");
+        print!("{}", output);
         io::stdout().flush().unwrap();
     }
 }

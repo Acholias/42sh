@@ -9,6 +9,10 @@ fn main()
 
     loop
     {
-        let _line = editor.read_line();
+        match editor.read_line()
+        {
+            Some(line)  =>  println!("Line catch with read_line : {}", line),
+            None        => break,
+        }
     }
 }

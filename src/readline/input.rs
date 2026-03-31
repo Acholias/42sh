@@ -12,7 +12,10 @@ pub enum Action {
     Backspace,
     Enter,
     Char(char),
-    CTRLD,
+    CtrlD,
+    CtrlC,
+    CtrlL,
+    CtrlW,
     Unknown,
 }
 
@@ -43,7 +46,10 @@ pub fn read_action() -> Action
         }
 
         1           => Action::Home,
-        4           => Action::CTRLD,
+        3           => Action::CtrlC,
+        4           => Action::CtrlD,
+        12          => Action::CtrlL,
+        23          => Action::CtrlW,
         5           => Action::End,
         11          => Action::ClearAfter,
         21          => Action::Clear,

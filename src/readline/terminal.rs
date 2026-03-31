@@ -1,4 +1,5 @@
 use libc::{tcgetattr, tcsetattr, termios, STDIN_FILENO, TCSANOW};
+use libc::{signal, SIGINT, SIG_IGN};
 use std::mem;
 
 pub struct RawMode {
@@ -14,12 +15,14 @@ impl    RawMode {
 
         let original = termios;
 
-        termios.c_lflag &= !(libc::ICANON | libc::ECHO);
+        termios.c_lflag &= !(libc::ICANON | libc::ECHO | libc::ISIG);
 
         termios.c_cc[libc::VMIN] = 1;
         termios.c_cc[libc::VTIME] = 0;
 
         unsafe { tcsetattr(STDIN_FILENO, TCSANOW, &termios) };
+
+        unsafe { signal(SIGINT, SIG_IGN) };
 
         RawMode { original }
     }
@@ -29,5 +32,7 @@ impl Drop for RawMode {
     fn drop(&mut self)
     {
         unsafe { tcsetattr(STDIN_FILENO, TCSANOW, &self.original) };
+
+        unsafe { signal(SIGINT, libc::SIG_DFL) };
     }
 }

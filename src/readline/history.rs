@@ -26,7 +26,7 @@ impl    History
 
     fn path() -> PathBuf
     {
-        let home = std::env::var("HOME").unwrap_or_else(|_| String::from("/tmp"));
+        let home = std::env::var("HOME").unwrap_or(String::from("/tmp"));
         PathBuf::from(home).join(".42sh_history")
     }
 

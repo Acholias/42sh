@@ -1,6 +1,7 @@
 use crate::readline::input::{read_action, Action};
 use crate::readline::display::Display;
 use crate::readline::history::History;
+use std::io::{self, Write};
 
 pub struct Editor {
     buffer:     Vec<char>,
@@ -81,12 +82,12 @@ impl    Editor {
         line
     }
 
-    fn catch_ctrl_d(&mut self)
+    fn catch_ctrl_d(&mut self) -> bool
     {
         if self.buffer.is_empty()
         {
-            self.display.newline();
-            std::process::exit(0);
+            self.display.newline(&self.buffer);
+            true
         }
         else
         {
@@ -94,6 +95,36 @@ impl    Editor {
             {
                 self.buffer.remove(self.cursor);
             }
+            false
+        }
+    }
+
+    fn  catch_ctrl_c(&mut self)
+    {
+        println!("^C");
+        io::stdout().flush().unwrap();
+        self.buffer.clear();
+        self.cursor = 0;
+        self.display.render(&self.buffer, self.cursor);
+    }
+
+    fn  catch_ctrl_l(&mut self)
+    {
+        print!("\x1b[2J\x1b[H");
+        self.display.render(&self.buffer, self.cursor);
+    }
+
+    fn  catch_ctrl_w(&mut self)
+    {
+        while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
+        {
+            self.cursor -= 1;
+            self.buffer.remove(self.cursor);
+        }
+        while self.cursor > 0 && self.buffer[self.cursor - 1] != ' '
+        {
+            self.cursor -= 1;
+            self.buffer.remove(self.cursor);
         }
     }
 
@@ -115,7 +146,7 @@ impl    Editor {
         }
     }
 
-    pub fn read_line(&mut self) -> String
+    pub fn read_line(&mut self) -> Option<String>
     {
         self.display.render(&self.buffer, self.cursor);
 
@@ -132,13 +163,16 @@ impl    Editor {
                 Action::Clear       => self.clear_before(),
                 Action::ClearAfter  => self.clear_after(),
                 Action::Enter       => { 
-                    self.display.newline();
-                    return self.validate();
+                    self.display.newline(&self.buffer);
+                    return Some(self.validate());
                 }
-                Action::CTRLD       => self.catch_ctrl_d(),
+                Action::CtrlD       => if self.catch_ctrl_d() { return None }
+                Action::CtrlC       => self.catch_ctrl_c(),
+                Action::CtrlL       => self.catch_ctrl_l(),
+                Action::CtrlW       => self.catch_ctrl_w(),
                 Action::MoveUp      => self.history_prev(),
                 Action::MoveDown    => self.history_next(),
-                Action::Unknown     => todo!()
+                Action::Unknown     => {}
             }
             self.display.render(&self.buffer, self.cursor);
         }
