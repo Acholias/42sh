@@ -128,6 +128,42 @@ impl    Editor {
         }
     }
 
+    fn  catch_alt_f(&mut self)
+    {
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor - 1] == ' '
+        {
+           self.cursor += 1; 
+        }
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor - 1] != ' '
+        {
+            self.cursor += 1;
+        }
+    }
+
+    fn catch_alt_b(&mut self)
+    {
+        while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
+        {
+            self.cursor -= 1;
+        }
+        while self.cursor > 0 && self.buffer[self.cursor - 1] != ' '
+        {
+            self.cursor -= 1;
+        }
+    }
+
+    fn catch_alt_d(&mut self)
+    {
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
+        {
+            self.buffer.remove(self.cursor);
+        }
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
+        {
+            self.buffer.remove(self.cursor);
+        }
+    }
+
     fn history_prev(&mut self)
     {
         if let Some(entry) = self.history.prev(&self.buffer)
@@ -172,6 +208,9 @@ impl    Editor {
                 Action::CtrlW       => self.catch_ctrl_w(),
                 Action::MoveUp      => self.history_prev(),
                 Action::MoveDown    => self.history_next(),
+                Action::AltF        => self.catch_alt_f(), 
+                Action::AltB        => self.catch_alt_b(),
+                Action::AltD        => self.catch_alt_d(),
                 Action::Unknown     => {}
             }
             self.display.render(&self.buffer, self.cursor);

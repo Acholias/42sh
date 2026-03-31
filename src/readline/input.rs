@@ -12,10 +12,13 @@ pub enum Action {
     Backspace,
     Enter,
     Char(char),
-    CtrlD,
+    CtrlD,              // Exit shell
     CtrlC,
-    CtrlL,
-    CtrlW,
+    CtrlL,              // clear terminal
+    CtrlW,              // Efface le premier mot avant le curseur
+    AltF,               // Avance le curseur de un mot
+    AltB,               // Recule le curseur de un mot
+    AltD,               // Efface le premier mot apres le curseur
     Unknown,
 }
 
@@ -24,7 +27,6 @@ pub fn read_action() -> Action
     let mut buffer = [0u8; 1];
 
     std::io::stdin().read_exact(&mut buffer).unwrap();
-
     match buffer[0]
     {
         27 =>
@@ -42,7 +44,16 @@ pub fn read_action() -> Action
                     _  => Action::Unknown,
                 }
             }
-            else { Action::Unknown }
+            else
+            {
+                match buffer[0]
+                {
+                    102 =>  Action::AltF,
+                    98  =>  Action::AltB,
+                    100 =>  Action::AltD,
+                    _   =>  Action::Unknown,
+                }
+            }
         }
 
         1           => Action::Home,
