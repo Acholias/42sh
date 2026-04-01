@@ -101,4 +101,9 @@ impl    History
             Some(&self.entries[self.index])
         }
     }
+
+    pub fn  last(&self) -> Option<&String>
+    {
+        self.entries.last()
+    }
 }

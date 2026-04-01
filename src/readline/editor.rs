@@ -301,6 +301,32 @@ impl    Editor {
         }
     }
 
+    fn  catch_alt_hash(&mut self)
+    {
+        self.cursor = 0;
+        self.buffer.insert(0, '#');
+        self.cursor = self.buffer.len();
+        self.display.render(&self.buffer, self.cursor);
+        self.display.newline(&self.buffer);
+        self.validate();
+    }
+
+    fn  catch_alt_dot(&mut self)
+    {
+        if let Some(last) = self.history.last()
+        {
+            let last_arg: String = last
+                .split_whitespace()
+                .last().unwrap_or("")
+                .to_string();
+        
+            for c in last_arg.chars()
+            {
+                self.insert(c);
+            }
+        }
+    }
+    
     fn  history_prev(&mut self)
     {
         if let Some(entry) = self.history.prev(&self.buffer)
@@ -356,6 +382,8 @@ impl    Editor {
                 Action::AltL        => self.catch_alt_l(),
                 Action::AltC        => self.catch_alt_c(),
                 Action::AltT        => self.catch_alt_t(),
+                Action::AltHash     => self.catch_alt_hash(),
+                Action::AltDot      => self.catch_alt_dot(),
                 Action::Unknown     => {}
             }
             self.display.render(&self.buffer, self.cursor);
