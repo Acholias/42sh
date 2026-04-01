@@ -23,6 +23,10 @@ pub enum Action {
     AltF,               // Avance le curseur de un mot
     AltB,               // Recule le curseur de un mot
     AltD,               // Efface le premier mot apres le curseur
+    AltU,               // met le mot en majuscule
+    AltL,               // met le mot en minuscule
+    AltC,               // Capitalize la premiere lettre du mot
+    AltT,               // Inverse les mots (comme le CTRL + T mais sur 2 mots)
     Unknown,
 }
 
@@ -104,6 +108,10 @@ fn read_alt_sequence(byte: u8) -> Action
         102 => Action::AltF,
         98  => Action::AltB,
         100 => Action::AltD,
+        99  => Action::AltC,
+        108 => Action::AltL,
+        116 => Action::AltT,
+        117 => Action::AltU,
         _   => Action::Unknown,
     }
 }

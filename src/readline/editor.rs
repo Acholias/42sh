@@ -138,7 +138,7 @@ impl    Editor {
         self.buffer.drain(self.cursor..start);
     }
 
-    fn catch_ctrl_y(&mut self)
+    fn  catch_ctrl_y(&mut self)
     {
         for c in self.kill_ring.clone().chars()
         {
@@ -146,7 +146,7 @@ impl    Editor {
         }
     }
 
-    fn catch_ctrl_t(&mut self)
+    fn  catch_ctrl_t(&mut self)
     {
         if self.cursor > 2
         {
@@ -159,7 +159,7 @@ impl    Editor {
         }
     }
 
-    fn catch_ctrl_arrow_left(&mut self)
+    fn  catch_ctrl_arrow_left(&mut self)
     {
         while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
         {
@@ -171,7 +171,7 @@ impl    Editor {
         }
     }
     
-    fn catch_ctrl_arrow_right(&mut self)
+    fn  catch_ctrl_arrow_right(&mut self)
     {
         while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
         {
@@ -195,7 +195,7 @@ impl    Editor {
         }
     }
 
-    fn catch_alt_b(&mut self)
+    fn  catch_alt_b(&mut self)
     {
         while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
         {
@@ -207,7 +207,7 @@ impl    Editor {
         }
     }
 
-    fn catch_alt_d(&mut self)
+    fn  catch_alt_d(&mut self)
     {
         while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
         {
@@ -219,7 +219,56 @@ impl    Editor {
         }
     }
 
-    fn history_prev(&mut self)
+    fn  catch_alt_u(&mut self)
+    {
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
+        {
+            self.cursor += 1;
+        }
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
+        {
+            self.buffer[self.cursor] = self.buffer[self.cursor].to_uppercase().next().unwrap();
+            self.cursor += 1;
+        }
+    }
+
+    fn  catch_alt_l(&mut self)
+    {
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
+        {
+            self.cursor += 1;
+        }
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
+        {
+            self.buffer[self.cursor] = self.buffer[self.cursor].to_lowercase().next().unwrap();
+            self.cursor += 1;
+        }
+    }
+
+    fn  catch_alt_c(&mut self)
+    {
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
+        {
+            self.cursor += 1;
+        }
+        if self.cursor < self.buffer.len()
+        {
+            self.buffer[self.cursor] = self.buffer[self.cursor].to_uppercase().next().unwrap();
+            self.cursor += 1;
+        }
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
+        {
+            self.buffer[self.cursor] = self.buffer[self.cursor].to_lowercase().next().unwrap();
+            self.cursor += 1;
+        }
+    }
+
+    fn  catch_alt_t(&mut self)
+    {
+
+    }
+
+    fn  history_prev(&mut self)
     {
         if let Some(entry) = self.history.prev(&self.buffer)
         {
@@ -228,7 +277,7 @@ impl    Editor {
         }
     }
 
-    fn history_next(&mut self)
+    fn  history_next(&mut self)
     {
         if let Some(entry) = self.history.next()
         {
@@ -237,7 +286,7 @@ impl    Editor {
         }
     }
 
-    pub fn readline(&mut self) -> Option<String>
+    pub fn  readline(&mut self) -> Option<String>
     {
         self.display.render(&self.buffer, self.cursor);
 
@@ -270,6 +319,10 @@ impl    Editor {
                 Action::CtrlT       => self.catch_ctrl_t(),
                 Action::CtrlAR      => self.catch_ctrl_arrow_right(),
                 Action::CtrlAL      => self.catch_ctrl_arrow_left(),
+                Action::AltU        => self.catch_alt_u(),
+                Action::AltL        => self.catch_alt_l(),
+                Action::AltC        => self.catch_alt_c(),
+                Action::AltT        => self.catch_alt_t(),
                 Action::Unknown     => {}
             }
             self.display.render(&self.buffer, self.cursor);
