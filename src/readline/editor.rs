@@ -23,13 +23,45 @@ impl    Editor {
         }
     }
 
-    fn insert(&mut self, c: char)
+    fn  skip_spaces_forward(&mut self)
+    {
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
+        {
+            self.cursor += 1;
+        }
+    }
+
+    fn  skip_word_forward(&mut self)
+    {
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
+        {
+            self.cursor += 1;
+        }
+    }
+
+    fn  skip_spaces_backward(&mut self)
+    {
+        while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
+        {
+            self.cursor -= 1;
+        }
+    }
+
+    fn  skip_word_backward(&mut self)
+    {
+        while self.cursor > 0 && self.buffer[self.cursor - 1] != ' '
+        {
+            self.cursor -= 1;
+        }
+    }
+
+    fn  insert(&mut self, c: char)
     {
         self.buffer.insert(self.cursor, c);
         self.cursor += 1;
     }
 
-    fn backspace(&mut self)
+    fn  backspace(&mut self)
     {
         if self.cursor > 0
         {
@@ -38,7 +70,7 @@ impl    Editor {
         }
     }
 
-    fn move_left(&mut self)
+    fn  move_left(&mut self)
     {
         if self.cursor > 0
         {
@@ -46,7 +78,7 @@ impl    Editor {
         }
     }
 
-    fn move_right(&mut self)
+    fn  move_right(&mut self)
     {
         if self.cursor < self.buffer.len()
         {
@@ -54,17 +86,17 @@ impl    Editor {
         }
     }
 
-    fn move_home(&mut self)
+    fn  move_home(&mut self)
     {
         self.cursor = 0;
     }
 
-    fn move_end(&mut self)
+    fn  move_end(&mut self)
     {
         self.cursor = self.buffer.len();
     }
 
-    fn clear_before(&mut self)
+    fn  clear_before(&mut self)
     {
         let killed: String = self.buffer[..self.cursor].iter().collect();
         self.kill_ring = killed;
@@ -72,14 +104,14 @@ impl    Editor {
         self.cursor = 0;
     }
 
-    fn clear_after(&mut self)
+    fn  clear_after(&mut self)
     {
         let killed: String = self.buffer[self.cursor..].iter().collect();
         self.kill_ring = killed;
         self.buffer.truncate(self.cursor);
     }
 
-    fn validate(&mut self) -> String
+    fn  validate(&mut self) -> String
     {
         let line: String = self.buffer.iter().collect();
         self.history.push(line.clone());
@@ -88,7 +120,7 @@ impl    Editor {
         line
     }
 
-    fn catch_ctrl_d(&mut self) -> bool
+    fn  catch_ctrl_d(&mut self) -> bool
     {
         if self.buffer.is_empty()
         {
@@ -124,14 +156,8 @@ impl    Editor {
     {
         let start = self.cursor;
         
-        while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
-        {
-            self.cursor -= 1;
-        }
-        while self.cursor > 0 && self.buffer[self.cursor - 1] != ' '
-        {
-            self.cursor -= 1;
-        }
+        self.skip_spaces_backward();
+        self.skip_word_backward();
 
         let killed: String = self.buffer[self.cursor..start].iter().collect();
         self.kill_ring = killed;
@@ -161,70 +187,40 @@ impl    Editor {
 
     fn  catch_ctrl_arrow_left(&mut self)
     {
-        while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
-        {
-            self.cursor -= 1;
-        }
-        while self.cursor > 0 && self.buffer[self.cursor - 1] != ' '
-        {
-            self.cursor -= 1;
-        }
+        self.skip_spaces_backward();
+        self.skip_word_backward();
     }
     
     fn  catch_ctrl_arrow_right(&mut self)
     {
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
-        {
-            self.cursor += 1;
-        }
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
-        {
-            self.cursor += 1;
-        }
+        self.skip_spaces_forward();
+        self.skip_word_forward();
     }
 
     fn  catch_alt_f(&mut self)
     {
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
-        {
-           self.cursor += 1; 
-        }
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
-        {
-            self.cursor += 1;
-        }
+        self.skip_spaces_forward();
+        self.skip_word_forward();
     }
 
     fn  catch_alt_b(&mut self)
     {
-        while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
-        {
-            self.cursor -= 1;
-        }
-        while self.cursor > 0 && self.buffer[self.cursor - 1] != ' '
-        {
-            self.cursor -= 1;
-        }
+        self.skip_spaces_backward();
+        self.skip_word_backward();
     }
 
     fn  catch_alt_d(&mut self)
     {
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
-        {
-            self.buffer.remove(self.cursor);
-        }
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
-        {
-            self.buffer.remove(self.cursor);
-        }
+        let start = self.cursor;
+        self.skip_spaces_forward();
+        self.skip_word_forward();
+        self.buffer.drain(start..self.cursor);
+        self.cursor = start;
     }
 
     fn  catch_alt_u(&mut self)
     {
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
-        {
-            self.cursor += 1;
-        }
+        self.skip_spaces_forward();
         while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
         {
             self.buffer[self.cursor] = self.buffer[self.cursor].to_uppercase().next().unwrap();
@@ -234,10 +230,7 @@ impl    Editor {
 
     fn  catch_alt_l(&mut self)
     {
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
-        {
-            self.cursor += 1;
-        }
+        self.skip_spaces_forward();
         while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
         {
             self.buffer[self.cursor] = self.buffer[self.cursor].to_lowercase().next().unwrap();
@@ -247,10 +240,7 @@ impl    Editor {
 
     fn  catch_alt_c(&mut self)
     {
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
-        {
-            self.cursor += 1;
-        }
+        self.skip_spaces_forward();
         if self.cursor < self.buffer.len()
         {
             self.buffer[self.cursor] = self.buffer[self.cursor].to_uppercase().next().unwrap();
