@@ -33,58 +33,77 @@ pub fn read_action() -> Action
     std::io::stdin().read_exact(&mut buffer).unwrap();
     match buffer[0]
     {
-        27 =>
-        {
-            std::io::stdin().read_exact(&mut buffer).unwrap();
-            if buffer[0] == 91
-            {
-                std::io::stdin().read_exact(&mut buffer).unwrap();
-                match buffer[0]
-                {
-                    65 => Action::MoveUp,
-                    66 => Action::MoveDown,
-                    67 => Action::MoveRight,
-                    68 => Action::MoveLeft,
-                    49 =>
-                    {
-                        std::io::stdin().read_exact(&mut buffer).unwrap();
-                        std::io::stdin().read_exact(&mut buffer).unwrap();
-                        std::io::stdin().read_exact(&mut buffer).unwrap();
-                        match buffer[0]
-                        {
-                            67 => Action::CtrlAR,
-                            68 => Action::CtrlAL,
-                            _  => Action::Unknown,
-                        }
-                    }
-                    _  => Action::Unknown,
-                }
-            }
-            else
-            {
-                match buffer[0]
-                {
-                    102 =>  Action::AltF,
-                    98  =>  Action::AltB,
-                    100 =>  Action::AltD,
-                    _   =>  Action::Unknown,
-                }
-            }
-        }
-
+        27          => read_escape_sequence(),
         1           => Action::Home,
         3           => Action::CtrlC,
         4           => Action::CtrlD,
+        5           => Action::End,
+        10          => Action::Enter,
+        11          => Action::ClearAfter,
         12          => Action::CtrlL,
+        20          => Action::CtrlT,
+        21          => Action::Clear,
         23          => Action::CtrlW,
         25          => Action::CtrlY,
-        20          => Action::CtrlT,
-        5           => Action::End,
-        11          => Action::ClearAfter,
-        21          => Action::Clear,
-        10          => Action::Enter,
         127         => Action::Backspace,
         32..=126    => Action::Char(buffer[0] as char),
         _           => Action::Unknown,
+    }
+}
+
+fn  read_escape_sequence() -> Action
+{
+    let mut buffer = [0u8; 1];
+
+    std::io::stdin().read_exact(&mut buffer).unwrap();
+    if buffer[0] == 91
+    {
+        read_csi_sequence()
+    }
+    else
+    {
+        read_alt_sequence(buffer[0])
+    }
+}
+
+fn  read_csi_sequence() -> Action
+{
+    let mut buffer = [0u8; 1];
+    std::io::stdin().read_exact(&mut buffer).unwrap();
+
+    match buffer[0]
+    {
+        65  => Action::MoveUp,
+        66  => Action::MoveDown,
+        67  => Action::MoveRight,
+        68  => Action::MoveLeft,
+        49  => read_ctrl_arrow(),
+        _   => Action::Unknown,
+    }
+}
+
+fn  read_ctrl_arrow() -> Action
+{
+    let mut buffer = [0u8; 1];
+
+    std::io::stdin().read_exact(&mut buffer).unwrap();
+    std::io::stdin().read_exact(&mut buffer).unwrap();
+    std::io::stdin().read_exact(&mut buffer).unwrap();
+    match buffer[0]
+    {
+        67  => Action::CtrlAR,
+        68  => Action::CtrlAL,
+        _   => Action::Unknown,
+    }
+}
+
+fn read_alt_sequence(byte: u8) -> Action
+{
+    match byte
+    {
+        102 => Action::AltF,
+        98  => Action::AltB,
+        100 => Action::AltD,
+        _   => Action::Unknown,
     }
 }
