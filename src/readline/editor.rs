@@ -265,7 +265,40 @@ impl    Editor {
 
     fn  catch_alt_t(&mut self)
     {
+        let mut word_end2 = self.cursor;
+        while word_end2 < self.buffer.len() && self.buffer[word_end2] != ' '
+        {
+            word_end2 += 1;
+        }
 
+        let mut word_start2 = word_end2;
+        while word_start2 > 0 && self.buffer[word_start2 - 1] != ' '
+        {
+            word_start2 -= 1;
+        }
+
+        let mut word_end1 = word_start2;
+        while word_end1 > 0 && self.buffer[word_end1 - 1] == ' '
+        {
+            word_end1 -= 1;
+        }
+
+        let mut word_start1 = word_end1;
+        while word_start1 > 0 && self.buffer[word_start1 - 1] != ' '
+        {
+            word_start1 -= 1;
+        }
+
+        if word_start1 < word_end1 && word_start2 < word_end2
+        {
+            let word1:  Vec<char> = self.buffer[word_start1..word_end1].to_vec();
+            let word2:  Vec<char> = self.buffer[word_start2..word_end2].to_vec();
+        
+            self.buffer.splice(word_start2..word_end2, word1);
+            self.buffer.splice(word_start1..word_end1, word2);
+            
+            self.cursor = word_start2 + (word_end2 - word_start2);
+        }
     }
 
     fn  history_prev(&mut self)

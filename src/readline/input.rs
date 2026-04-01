@@ -27,6 +27,8 @@ pub enum Action {
     AltL,               // met le mot en minuscule
     AltC,               // Capitalize la premiere lettre du mot
     AltT,               // Inverse les mots (comme le CTRL + T mais sur 2 mots)
+    AltDot,             // Insere sur le buffer le dernier arguments de l'historique
+    AltHash,            // Commente la ligne
     Unknown,
 }
 
@@ -112,6 +114,8 @@ fn read_alt_sequence(byte: u8) -> Action
         108 => Action::AltL,
         116 => Action::AltT,
         117 => Action::AltU,
+        35  => Action::AltHash,
+        46  => Action::AltDot,
         _   => Action::Unknown,
     }
 }
