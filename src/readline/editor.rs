@@ -8,6 +8,7 @@ pub struct Editor {
     cursor:     usize,
     history:    History,
     display:    Display,
+    kill_ring:  String,
 }
 
 impl    Editor {
@@ -18,6 +19,7 @@ impl    Editor {
             cursor:     0,
             history:    History::new(),
             display:    Display::new(prompt),
+            kill_ring:  String::new(),
         }
     }
 
@@ -64,12 +66,16 @@ impl    Editor {
 
     fn clear_before(&mut self)
     {
+        let killed: String = self.buffer[..self.cursor].iter().collect();
+        self.kill_ring = killed;
         self.buffer.drain(..self.cursor);
         self.cursor = 0;
     }
 
     fn clear_after(&mut self)
     {
+        let killed: String = self.buffer[self.cursor..].iter().collect();
+        self.kill_ring = killed;
         self.buffer.truncate(self.cursor);
     }
 
@@ -116,25 +122,74 @@ impl    Editor {
 
     fn  catch_ctrl_w(&mut self)
     {
+        let start = self.cursor;
+        
         while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
         {
             self.cursor -= 1;
-            self.buffer.remove(self.cursor);
         }
         while self.cursor > 0 && self.buffer[self.cursor - 1] != ' '
         {
             self.cursor -= 1;
-            self.buffer.remove(self.cursor);
+        }
+
+        let killed: String = self.buffer[self.cursor..start].iter().collect();
+        self.kill_ring = killed;
+        self.buffer.drain(self.cursor..start);
+    }
+
+    fn catch_ctrl_y(&mut self)
+    {
+        for c in self.kill_ring.clone().chars()
+        {
+            self.insert(c);
+        }
+    }
+
+    fn catch_ctrl_t(&mut self)
+    {
+        if self.cursor > 2
+        {
+            self.buffer.swap(self.cursor - 2, self.cursor - 1)
+        }
+        else if self.cursor == 1 && self.buffer.len() >= 2
+        {
+            self.buffer.swap(0, 1);
+            self.cursor += 1;
+        }
+    }
+
+    fn catch_ctrl_arrow_left(&mut self)
+    {
+        while self.cursor > 0 && self.buffer[self.cursor - 1] == ' '
+        {
+            self.cursor -= 1;
+        }
+        while self.cursor > 0 && self.buffer[self.cursor - 1] != ' '
+        {
+            self.cursor -= 1;
+        }
+    }
+    
+    fn catch_ctrl_arrow_right(&mut self)
+    {
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
+        {
+            self.cursor += 1;
+        }
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
+        {
+            self.cursor += 1;
         }
     }
 
     fn  catch_alt_f(&mut self)
     {
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor - 1] == ' '
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] == ' '
         {
            self.cursor += 1; 
         }
-        while self.cursor < self.buffer.len() && self.buffer[self.cursor - 1] != ' '
+        while self.cursor < self.buffer.len() && self.buffer[self.cursor] != ' '
         {
             self.cursor += 1;
         }
@@ -182,7 +237,7 @@ impl    Editor {
         }
     }
 
-    pub fn read_line(&mut self) -> Option<String>
+    pub fn readline(&mut self) -> Option<String>
     {
         self.display.render(&self.buffer, self.cursor);
 
@@ -211,6 +266,10 @@ impl    Editor {
                 Action::AltF        => self.catch_alt_f(), 
                 Action::AltB        => self.catch_alt_b(),
                 Action::AltD        => self.catch_alt_d(),
+                Action::CtrlY       => self.catch_ctrl_y(),
+                Action::CtrlT       => self.catch_ctrl_t(),
+                Action::CtrlAR      => self.catch_ctrl_arrow_right(),
+                Action::CtrlAL      => self.catch_ctrl_arrow_left(),
                 Action::Unknown     => {}
             }
             self.display.render(&self.buffer, self.cursor);

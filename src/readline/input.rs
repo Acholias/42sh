@@ -16,6 +16,10 @@ pub enum Action {
     CtrlC,
     CtrlL,              // clear terminal
     CtrlW,              // Efface le premier mot avant le curseur
+    CtrlY,              // Colle le kill_ring
+    CtrlT,              // Inverser deux caractere
+    CtrlAL,             // ctrl + fleche de gauche
+    CtrlAR,             // ctrl + fleche de droite
     AltF,               // Avance le curseur de un mot
     AltB,               // Recule le curseur de un mot
     AltD,               // Efface le premier mot apres le curseur
@@ -41,6 +45,18 @@ pub fn read_action() -> Action
                     66 => Action::MoveDown,
                     67 => Action::MoveRight,
                     68 => Action::MoveLeft,
+                    49 =>
+                    {
+                        std::io::stdin().read_exact(&mut buffer).unwrap();
+                        std::io::stdin().read_exact(&mut buffer).unwrap();
+                        std::io::stdin().read_exact(&mut buffer).unwrap();
+                        match buffer[0]
+                        {
+                            67 => Action::CtrlAR,
+                            68 => Action::CtrlAL,
+                            _  => Action::Unknown,
+                        }
+                    }
                     _  => Action::Unknown,
                 }
             }
@@ -61,6 +77,8 @@ pub fn read_action() -> Action
         4           => Action::CtrlD,
         12          => Action::CtrlL,
         23          => Action::CtrlW,
+        25          => Action::CtrlY,
+        20          => Action::CtrlT,
         5           => Action::End,
         11          => Action::ClearAfter,
         21          => Action::Clear,

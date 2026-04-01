@@ -9,7 +9,7 @@ fn main()
 
     loop
     {
-        match editor.read_line()
+        match editor.readline()
         {
             Some(line)  =>  println!("Line catch with read_line : {}", line),
             None        => break,
