@@ -4,22 +4,26 @@ use crate::readline::history::History;
 use std::io::{self, Write};
 
 pub struct Editor {
-    buffer:     Vec<char>,
-    cursor:     usize,
-    history:    History,
-    display:    Display,
-    kill_ring:  String,
+    buffer:             Vec<char>,
+    cursor:             usize,
+    history:            History,
+    display:            Display,
+    kill_ring:          String,
+    alt_index:          usize,
+    alt_dot_last_len:   usize,   
 }
 
 impl    Editor {
     pub fn new(prompt: &str) -> Self
     {
         Editor {
-            buffer:     Vec::new(),
-            cursor:     0,
-            history:    History::new(),
-            display:    Display::new(prompt),
-            kill_ring:  String::new(),
+            buffer:             Vec::new(),
+            cursor:             0,
+            history:            History::new(),
+            display:            Display::new(prompt),
+            kill_ring:          String::new(),
+            alt_index:          0,
+            alt_dot_last_len:   0,
         }
     }
 
@@ -113,6 +117,8 @@ impl    Editor {
 
     fn  validate(&mut self) -> String
     {
+        self.alt_index = 0;
+        self.alt_dot_last_len = 0;
         let line: String = self.buffer.iter().collect();
         self.history.push(line.clone());
         self.buffer.clear();
@@ -303,13 +309,36 @@ impl    Editor {
 
     fn  catch_alt_dot(&mut self)
     {
-        if let Some(last) = self.history.last()
+        let len = self.history.len();
+        if len == 0 { return ; }
+
+        for _ in 0..self.alt_dot_last_len
+        {
+            if self.cursor > 0
+            {
+                self.cursor -= 1;
+                self.buffer.remove(self.cursor);
+            }
+        }
+
+        if self.alt_index < len
+        {
+            self.alt_index += 1;
+        }
+        else
+        {
+            self.alt_dot_last_len = 0;
+            return ;
+        }
+
+        if let Some(last) = self.history.get(len - self.alt_index)
         {
             let last_arg: String = last
                 .split_whitespace()
                 .last().unwrap_or("")
                 .to_string();
-        
+            self.alt_dot_last_len = last_arg.len();
+            
             for c in last_arg.chars()
             {
                 self.insert(c);

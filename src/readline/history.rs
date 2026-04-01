@@ -102,8 +102,13 @@ impl    History
         }
     }
 
-    pub fn  last(&self) -> Option<&String>
+    pub fn  get(&self, index: usize) -> Option<&String>
     {
-        self.entries.last()
+        self.entries.get(index)
+    }
+
+    pub fn  len(&self) -> usize
+    {
+        self.entries.len()
     }
 }
