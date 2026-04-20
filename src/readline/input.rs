@@ -20,6 +20,8 @@ pub enum Action {
     CtrlT,              // Inverser deux caractere
     CtrlAL,             // ctrl + fleche de gauche
     CtrlAR,             // ctrl + fleche de droite
+	CtrlR,				// Ouvre le mode de recherche pour l'historique
+	CtrlG,				// Quitte le mode recherche avec l'historique
     AltF,               // Avance le curseur de un mot
     AltB,               // Recule le curseur de un mot
     AltD,               // Efface le premier mot apres le curseur
@@ -44,9 +46,11 @@ pub fn read_action() -> Action
         3           => Action::CtrlC,
         4           => Action::CtrlD,
         5           => Action::End,
+		7			=> Action::CtrlG,
         10          => Action::Enter,
         11          => Action::ClearAfter,
         12          => Action::CtrlL,
+		18			=> Action::CtrlR,
         20          => Action::CtrlT,
         21          => Action::Clear,
         23          => Action::CtrlW,

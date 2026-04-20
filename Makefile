@@ -4,6 +4,10 @@ all:
 	@cargo build --release -q
 	@cp target/release/$(NAME) .
 
+run: all
+	@./42sh
+	@clear
+
 clean:
 	@cargo clean -q
 
@@ -15,4 +19,4 @@ purge: fclean
 
 re: fclean all
 
-.PHONY: all clean fclean purge re
+.PHONY: all run clean fclean purge re

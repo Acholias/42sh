@@ -1,3 +1,15 @@
+// ************************************************************************** //
+//                                                                            //
+//                                                        :::      ::::::::   //
+//   terminal.rs                                        :+:      :+:    :+:   //
+//                                                    +:+ +:+         +:+     //
+//   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        //
+//                                                +#+#+#+#+#+   +#+           //
+//   Created: 2026/04/20 14:37:32 by lumugot           #+#    #+#             //
+//   Updated: 2026/04/20 14:37:32 by lumugot          ###   ########.fr       //
+//                                                                            //
+// ************************************************************************** //
+
 use libc::{tcgetattr, tcsetattr, termios, STDIN_FILENO, TCSANOW};
 use libc::{signal, SIGINT, SIG_IGN};
 use std::mem;

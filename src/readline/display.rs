@@ -1,3 +1,15 @@
+// ************************************************************************** //
+//                                                                            //
+//                                                        :::      ::::::::   //
+//   display.rs                                         :+:      :+:    :+:   //
+//                                                    +:+ +:+         +:+     //
+//   By: lumugot <lumugot@42angouleme.fr>           +#+  +:+       +#+        //
+//                                                +#+#+#+#+#+   +#+           //
+//   Created: 2026/04/20 13:26:48 by lumugot           #+#    #+#             //
+//   Updated: 2026/04/20 14:29:05 by lumugot          ###   ########.fr       //
+//                                                                            //
+// ************************************************************************** //
+
 use std::io::{self, Write};
 use libc::{ioctl, winsize, TIOCGWINSZ, STDOUT_FILENO};
 
@@ -79,4 +91,30 @@ impl    Display {
         print!("{}", output);
         io::stdout().flush().unwrap();
     }
+
+	pub fn render_search(&self, query: &str, result: &str)
+	{
+		let search_prompt = if !result.is_empty()
+		{
+			format!("(reverse-i-search)`{}'", query)
+		}
+		else
+		{
+			format!("(failed reverse-i-search)`{}'", query)
+		};
+
+		let width = Self::terminal_width();
+		let total_len = search_prompt.len() + result.len();
+		let mut output = String::new();
+
+		output.push_str("\x1b[1G\x1b[0J");
+		output.push_str(&search_prompt);
+		output.push_str(result);
+
+		let color_col = total_len % width + 1;
+		output.push_str(&format!("\x1b[{}G", color_col));
+
+		print!("{}", output);
+		io::stdout().flush().unwrap();
+	}
 }

@@ -102,6 +102,11 @@ impl    History
         }
     }
 
+	pub fn entries(&self) -> &Vec<String>
+	{
+		&self.entries
+	}
+
     pub fn  get(&self, index: usize) -> Option<&String>
     {
         self.entries.get(index)
